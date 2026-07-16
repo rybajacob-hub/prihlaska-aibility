@@ -60,3 +60,10 @@ git push
 ```
 
 GitHub Pages se po pushi sám přebuilduje (~30–90 s).
+
+## Důležité: `.nojekyll`
+
+V rootu repa MUSÍ zůstat prázdný soubor `.nojekyll`. Bez něj GitHub Pages
+(Jekyll) ignoruje soubory začínající podtržítkem — tedy `_pribeh.html` a
+`_flow-loop-engineering.md` by vracely 404. rsync kroky výše se ho nedotknou,
+takže stačí ho jen nemazat.
