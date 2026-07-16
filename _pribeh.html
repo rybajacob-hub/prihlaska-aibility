@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa příběhu — Aibility</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Signika:wght@400;500;600;700&display=swap">
+<style>
+  /* Design tokeny — viz docs/DESIGN-SYSTEM.md (aibility.org) */
+  :root {
+    --font-display: 'Signika', sans-serif;
+    --font-body: 'Geist', -apple-system, sans-serif;
+    --font-mono: 'Geist Mono', monospace;
+    --surface: #FFFBF4;
+    --surface-raised: #F7F5F2;
+    --text: #1B1B1B;
+    --text-muted: rgba(27, 27, 27, 0.6);
+    --accent: #5938B7;
+    --border: rgba(27, 27, 27, 0.12);
+  }
+  body { font-family: var(--font-body); margin: 2rem; background: var(--surface); color: var(--text); }
+  h1 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; font-size: 1.4rem; }
+  p.legend { color: var(--text-muted); font-size: 0.9rem; }
+  .tabs { margin: 1rem 0 0.75rem; }
+  .tabs button {
+    font: inherit; padding: 0.45rem 1.1rem; border: 1px solid var(--border); background: var(--surface-raised);
+    color: var(--text-muted); border-radius: 999px; cursor: pointer; margin-right: 0.4rem;
+  }
+  .tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  ul.types { color: var(--text-muted); font-size: 0.85rem; columns: 2; max-width: 60rem; }
+  .panel.hidden { display: none; }
+  .mermaid { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+</style>
+</head>
+<body>
+<h1>Mapa příběhu — Aibility</h1>
+<p class="legend">Plná čára = stalo se · čárkovaná = přání/plán · zdroj: <code>_pribeh.md</code> (13. 7. 2026)</p>
+
+<div class="tabs">
+  <button id="btn-nadhled" class="active">Nadhled</button>
+  <button id="btn-proces">Proces (detail)</button>
+</div>
+
+<div id="panel-nadhled" class="panel">
+<pre class="mermaid">
+flowchart LR
+    subgraph M["📜 MINULOST — jak se to seběhlo"]
+        direction TB
+        K1["Říjen 2025<br>kurz Aibility"] --> K2["Objev Cursoru<br>pro znalostní práci"]
+        K2 --> J1["Johnny —<br>vlastní AI asistent"]
+        P1["Konec 2025<br>1. přihláška (vibe-coded)"] --> Z1["Poznal Žanetu"]
+        Z1 --> N1["Nedopadlo — Aibility<br>se po Seyforu formovalo"]
+        J1 --> M1["Všiml si Martin Imrich<br>→ střecha Scott.Weber"]
+        N1 --> M1
+        M1 --> F1["Dal šanci Fidoo<br>(Head of Digital Sales)"]
+        F1 --> F2["Fidoo otočilo kormidlem<br>→ konec ve zkušebce, brzy volný"]
+    end
+
+    subgraph T["🎯 TEĎ"]
+        direction TB
+        S1["Second Brain + AI agent<br>(building in public)"]
+        A1["Přihláška 2.0<br>nový, upřímný příběh"]
+        S1 --> A1
+    end
+
+    subgraph B["🚀 KAM TO SMĚŘUJE — přání"]
+        direction TB
+        O1["Odeslat přihlášku"] -.-> V1["Vyhrát výběrko HoM"]
+        V1 -.-> AK["Full-time HoM<br>(start klidně projektově)"]
+        AK -.-> LE["Marketingová automatika<br>nad Aibility<br>(loop engineering)"]
+    end
+
+    K2 --> S1
+    F2 --> A1
+    A1 --> O1
+    S1 -.->|stejná automatika,<br>větší měřítko| LE
+
+    classDef past fill:#f5f0e8,stroke:#b0a58f,color:#3d3a33
+    classDef now fill:#fff3d6,stroke:#e0a83c,stroke-width:2px,color:#3d3a33
+    classDef future fill:#e8f2ec,stroke:#4a9d6e,stroke-dasharray:5 4,color:#2c4a38
+    class K1,K2,J1,P1,Z1,N1,M1,F1,F2 past
+    class S1,A1 now
+    class O1,V1,AK,LE future
+</pre>
+</div>
+
+<div id="panel-proces" class="panel">
+<ul class="types">
+  <li><b>obdélník</b> — událost (stalo se / probíhá)</li>
+  <li><b>🔷 šestiúhelník (modrý)</b> — rozhodnutí</li>
+  <li><b>✗ šedý</b> — slepá ulička + důvod</li>
+  <li><b>⚓ fialový</b> — kotevní bod: akce → artefakt</li>
+  <li><b>⚑ tyrkysový</b> — checkpoint před milníkem</li>
+  <li><b>❓ žlutý</b> — čeká na ověření</li>
+  <li><b>🏁 zvýrazněný</b> — cílový stav (milníky reverzně)</li>
+</ul>
+<pre class="mermaid">
+flowchart LR
+    subgraph M["📜 MINULOST — jak se to seběhlo"]
+        direction TB
+        K1["Říjen 2025<br>kurz Aibility"] --> K2["Objev Cursoru<br>pro znalostní práci"]
+        K2 --> J1["Johnny —<br>vlastní AI asistent"]
+        P1["Konec 2025<br>1. přihláška (vibe-coded)"] --> Z1["Poznal Žanetu"]
+        Z1 --> N1["✗ Nedopadlo — Aibility se<br>po Seyforu teprve formovalo"]
+        J1 --> M1["Všiml si Martin Imrich<br>→ střecha Scott.Weber"]
+        N1 --> M1
+        M1 --> F1["Dal šanci Fidoo<br>(Head of Digital Sales)"]
+        F1 --> F2["✗ Fidoo otočilo kormidlem<br>→ konec ve zkušebce, brzy volný"]
+    end
+
+    subgraph T["🎯 TEĎ — proces tvorby přihlášky 2.0"]
+        direction TB
+        S1["Second Brain + AI agent<br>(building in public)"]
+        X1["✗ Klasické PDF CV —<br>nedemonstruje builder přístup"]
+        R1{{"Rozhodnutí: ukázka práce > CV<br>(balíček: dopis + landing page)"}}
+        X2["✗ Portfolio hotových artefaktů"]
+        R2{{"Rozhodnutí: portfolio =<br>proces tvoření (building in public)"}}
+        R3{{"Rozhodnutí: příběh vyprávět<br>celý a upřímně, vč. konce ve Fidoo"}}
+        KA1["⚓ Research Seyfor/Aibility ověřen<br>→ zapsáno v KONTEXT.md (12. 7.)"]
+        KA2["⚓ Analýza videa AI Morning Show<br>→ use case Upload-Post (Aneta)<br>zapsán do NAPADY.md (13. 7.)"]
+        X3["✗ Buffer v content pipeline —<br>Aibility ho zavrhla (nefunkční API)"]
+        KA3["⚓ Popis pozice stažen a zkřížen<br>s 30denním plánem → popis-pozice.md<br>(13. 7.): 30 dní, Airtable formulář"]
+        A1["Přihláška 2.0<br>nový, upřímný příběh<br>→ prihlaska.md + preview (12. 7.)"]
+        KA4["⚓ Rozhodnuto: čísla Fidoo obecně<br>„50 % workforce“ → prihlaska.md (13. 7.)"]
+        R4{{"Rozhodnutí: FULL-TIME — fokus<br>na jednu věc, ne portfolio úvazků<br>(start klidně projektově) (13. 7.)"}}
+        KA5["⚓ Feedback Jakuba zapracován<br>→ prihlaska.md + preview (13. 7.):<br>férovka Fidoo AI adopci, Johnny na Mac Mini"]
+        KA6["⚓ Srovnání 7 scheduler alternativ<br>(plán B k Upload-Postu) → podklady-<br>scheduler-alternativy.md: Postiz · Blotato"]
+        KA7["⚓ Fact-check newsletteru vs. aibility.org<br>→ newsletter-01-vznik.md (13. 7.):<br>čísla ✅, příběh 660k opraven podle webu"]
+        Q1["❓ K ověření: Johnny — je co ukázat<br>(screenshot)? · jméno Martin Imrich ·<br>nástroj „Cowork“ ve Fidoo?"]
+        X1 -. zavrženo .-> R1
+        X2 -. zavrženo .-> R2
+        S1 --> R2
+        KA2 --> X3
+        R1 --> A1
+        R2 --> A1
+        R3 --> A1
+        KA1 --> A1
+        KA4 --> A1
+        R4 --> KA5
+        A1 --> KA5
+        Q1 -.-> KA5
+    end
+
+    subgraph B["🚀 KAM TO SMĚŘUJE — reverzně od cíle"]
+        direction TB
+        C1["⚑ Check: obsah odsouhlasen +<br>zodpovězeno „co dělá standout přihlášku“"]
+        C2["⚑ Check: oponentura jiným AI<br>(druhý pár očí)"]
+        C3["⚑ Check: prefinální layout<br>landing page hotový"]
+        O1["Milník: odeslat přihlášku<br>(Airtable) + heads-up Žanetě/Martinovi"]
+        V1["🏁 CÍL: vyhrát výběrko<br>Head of Marketing"]
+        AK["Milník: full-time HoM<br>(start klidně projektově/akcelerátorem)"]
+        LE["Marketingová automatika<br>nad Aibility (loop engineering)"]
+        C1 -.-> C2
+        C2 -.-> C3
+        C3 -.-> O1
+        O1 -.-> V1
+        V1 -.-> AK
+        AK -.-> LE
+    end
+
+    K2 --> S1
+    F2 --> R3
+    KA5 --> C1
+    KA2 -.->|jmenovitá vazba<br>do 30denního plánu| C1
+    KA6 -.-> C1
+    KA7 -.-> C2
+    KA3 -.-> C3
+    S1 -.->|stejná automatika,<br>větší měřítko| LE
+
+    classDef past fill:#f5f0e8,stroke:#b0a58f,color:#3d3a33
+    classDef now fill:#fff3d6,stroke:#e0a83c,stroke-width:2px,color:#3d3a33
+    classDef decision fill:#e3ecf7,stroke:#4a76b8,color:#243b5e
+    classDef deadend fill:#efedeb,stroke:#a8a29a,stroke-dasharray:3 3,color:#8a847a
+    classDef anchor fill:#efe8f7,stroke:#8a63b8,color:#3f2d5e
+    classDef check fill:#e4f2f0,stroke:#3b9188,stroke-dasharray:5 4,color:#1f4f49
+    classDef verify fill:#fff8e1,stroke:#c9a227,stroke-dasharray:3 3,color:#6b5713
+    classDef future fill:#e8f2ec,stroke:#4a9d6e,stroke-dasharray:5 4,color:#2c4a38
+    classDef goal fill:#dff0e5,stroke:#2e7d4f,stroke-width:3px,color:#1d4a2f
+
+    class K1,K2,J1,P1,Z1,M1,F1 past
+    class N1,F2,X1,X2,X3 deadend
+    class S1,A1 now
+    class R1,R2,R3,R4 decision
+    class KA1,KA2,KA3,KA4,KA5,KA6,KA7 anchor
+    class Q1 verify
+    class C1,C2,C3 check
+    class O1,AK,LE future
+    class V1 goal
+</pre>
+</div>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+  // vykreslit oba diagramy dokud jsou viditelné (mermaid špatně měří skryté prvky), pak detail schovat
+  await mermaid.run();
+  document.getElementById("panel-proces").classList.add("hidden");
+
+  const btnN = document.getElementById("btn-nadhled");
+  const btnP = document.getElementById("btn-proces");
+  const panelN = document.getElementById("panel-nadhled");
+  const panelP = document.getElementById("panel-proces");
+  function show(which) {
+    panelN.classList.toggle("hidden", which !== "nadhled");
+    panelP.classList.toggle("hidden", which !== "proces");
+    btnN.classList.toggle("active", which === "nadhled");
+    btnP.classList.toggle("active", which === "proces");
+  }
+  btnN.addEventListener("click", () => show("nadhled"));
+  btnP.addEventListener("click", () => show("proces"));
+</script>
+</body>
+</html>

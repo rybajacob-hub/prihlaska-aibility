@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kolik % vašeho týmu je AI Explorer? | Aibility</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Signika:wght@400;500;600;700&display=swap">
+  <style>
+  :root {
+    /* Design tokeny — viz docs/DESIGN-SYSTEM.md (aibility.org) */
+    --bg: #201547;
+    --surface: #2a1c5c;
+    --border: #2a2a3d;
+    --text: #FAF4EE;
+    --muted: rgba(250, 244, 238, 0.65);
+    --accent: #5938B7;
+    --accent-light: #A98DF6;
+    --green: #00cec9;
+    --orange: #fdcb6e;
+    --red: #ff7675;
+    --font-display: 'Signika', sans-serif;
+    --font-body: 'Geist', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .logo span { color: var(--accent-light); }
+
+  .badge {
+    display: inline-block;
+    background: rgba(169, 141, 246, 0.15);
+    color: var(--accent-light);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin: 48px 0 24px;
+    border: 1px solid rgba(169, 141, 246, 0.3);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--accent-light), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    max-width: 560px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 40px 0;
+  }
+
+  @media (min-width: 600px) {
+    .stats { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stat.explorer .stat-value { color: var(--orange); }
+  .stat.operator .stat-value { color: var(--accent-light); }
+  .stat.builder .stat-value { color: var(--green); }
+  .stat.transformer .stat-value { color: var(--red); }
+
+  .cta-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 48px 0;
+  }
+
+  .cta-box h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .cta-box p {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--muted);
+  }
+
+  input, select {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input:focus, select:focus {
+    border-color: var(--accent);
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+  }
+
+  .btn:hover {
+    background: var(--accent-light);
+    transform: translateY(-1px);
+  }
+
+  .trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin: 32px 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .trust-item::before {
+    content: "✓";
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding: 16px 0 16px 24px;
+    margin: 48px 0;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .quote cite {
+    display: block;
+    margin-top: 12px;
+    font-style: normal;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .levels {
+    margin: 48px 0;
+  }
+
+  .levels h2 {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .level {
+    display: flex;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .level-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-light);
+    min-width: 24px;
+    padding-top: 2px;
+  }
+
+  .level h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .level p {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  footer {
+    padding: 48px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 64px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .demo-note {
+    background: rgba(253, 203, 110, 0.1);
+    border: 1px solid rgba(253, 203, 110, 0.3);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 32px 0;
+    font-size: 14px;
+    color: var(--orange);
+  }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo"><span>AI</span>bility · Superpowered Professional™</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="badge">Návrh kampaně · Head of Marketing přihláška</div>
+
+  <h1>Kolik % vašeho týmu je <em>AI Explorer</em>?</h1>
+
+  <p class="subtitle">
+    Změřte AI zralost svého týmu na základě dat z 3 000+ profesionálů a 200+ firem.
+    Za 15 minut víte, kde jste — a co dělat dál.
+  </p>
+
+  <div class="stats">
+    <div class="stat explorer">
+      <div class="stat-value">43%</div>
+      <div class="stat-label">Explorer</div>
+    </div>
+    <div class="stat operator">
+      <div class="stat-value">42%</div>
+      <div class="stat-label">Operator</div>
+    </div>
+    <div class="stat builder">
+      <div class="stat-value">12%</div>
+      <div class="stat-label">Builder</div>
+    </div>
+    <div class="stat transformer">
+      <div class="stat-value">3%</div>
+      <div class="stat-label">Transformer</div>
+    </div>
+  </div>
+
+  <div class="demo-note">
+    ⚡ Toto je demo landing page vytvořená jako součást přihlášky na Head of Marketing.
+    Kampaně: „Kolik % vašeho týmu je AI Explorer?" — návrh první B2B/B2C funnel kampaně.
+  </div>
+
+  <div class="cta-box">
+    <h2>Zjistěte AI profil vašeho týmu</h2>
+    <p>SP™ Assessment · 15 minut · Osobní report s doporučením</p>
+
+    <form onsubmit="event.preventDefault(); alert('Demo — v produkci redirect na aibility.org assessment');">
+      <div class="form-group">
+        <label for="email">Pracovní e-mail</label>
+        <input type="email" id="email" placeholder="jmeno@firma.cz" required>
+      </div>
+      <div class="form-group">
+        <label for="role">Vaše role</label>
+        <select id="role">
+          <option>CEO / Founder</option>
+          <option>HR / L&D</option>
+          <option>IT / Digital</option>
+          <option>Manager týmu</option>
+          <option>Jiná</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="size">Velikost týmu</label>
+        <select id="size">
+          <option>1–10 lidí</option>
+          <option>11–50 lidí</option>
+          <option>51–200 lidí</option>
+          <option>200+ lidí</option>
+        </select>
+      </div>
+      <button type="submit" class="btn">Spustit assessment zdarma →</button>
+    </form>
+  </div>
+
+  <div class="trust">
+    <div class="trust-item">3 000+ profesionálů v benchmarku</div>
+    <div class="trust-item">200+ firem</div>
+    <div class="trust-item">5 zemí</div>
+    <div class="trust-item">15 minut</div>
+  </div>
+
+  <div class="quote">
+    „Největší skok v hodnotě není mezi ‚nepoužívám' a ‚používám'. Je mezi Operatorem a Builderem."
+    <cite>— Data z SP™ benchmarku, Aibility 2026</cite>
+  </div>
+
+  <section class="levels">
+    <h2>4 úrovně Superpowered Professional™</h2>
+
+    <div class="level">
+      <div class="level-num">L0</div>
+      <div>
+        <h3>AI Explorer</h3>
+        <p>Zkouší AI občas. Ptá se na nápady, ale vrací se ke starým návykům.</p>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-num">L1</div>
+      <div>
+        <h3>AI Operator</h3>
+        <p>Používá AI pravidelně. Umí iterovat, ale pokaždé začíná znovu.</p>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-num">L2</div>
+      <div>
+        <h3>AI Builder</h3>
+        <p>Staví workflow, šablony a asistenty, kteří pracují za něj.</p>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-num">L3</div>
+      <div>
+        <h3>AI Transformer</h3>
+        <p>Redesignuje procesy. Objevuje nové příležitosti a realizuje je.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-box">
+    <h2>Pro firmy: AI adopce postavená na datech</h2>
+    <p>Benchmark pro celý tým · Reporting pro management · EU AI Act compliance</p>
+    <button class="btn" onclick="alert('Demo — v produkci: Calendly / aibility.org B2B')">Domluvit call s týmem →</button>
+  </div>
+
+</main>
+
+<footer>
+  <p>Návrh kampaně · součást přihlášky Head of Marketing · aibility.org</p>
+  <p style="margin-top: 8px;">Superpowered Professional™ je trademark Aibility</p>
+</footer>
+
+</body>
+</html>
