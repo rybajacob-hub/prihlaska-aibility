@@ -820,6 +820,15 @@ flowchart LR
     img.addEventListener("click", openImg);
     wrap.appendChild(btn);
   });
+
+  // Kotva v URL (#plan-30-dnu apod.) — po dorenderování obsahu doskrolovat na správné místo
+  function scrollToHash() {
+    if (!location.hash) return;
+    const el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (el) el.scrollIntoView({ behavior: "instant", block: "start" });
+  }
+  scrollToHash();
+  window.addEventListener("load", () => setTimeout(scrollToHash, 100));
 </script>
 </body>
 </html>
