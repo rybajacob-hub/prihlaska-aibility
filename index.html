@@ -48,7 +48,16 @@
   a { color: var(--accent); }
   hr { border: none; border-top: 1px solid var(--border); margin: 2.2rem 0; }
   blockquote { border-left: 3px solid var(--accent-subtle); margin-left: 0; padding-left: 1rem; color: var(--text-secondary); }
-  .mermaid { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin: 1rem 0; overflow-x: auto; }
+  #content img, .toggle-body img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; margin: .9rem 0 .3rem; display: block; box-shadow: var(--shadow-sm); }
+  #content img + em, .toggle-body img + em { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: .8rem; }
+  .mermaid { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin: 1rem 0; overflow-x: auto; position: relative; }
+  .mermaid .zoom-btn { position: absolute; top: 8px; right: 8px; font-size: 12px; font-family: var(--font-body); background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 3px 11px; cursor: pointer; color: var(--text); box-shadow: var(--shadow-sm); z-index: 2; }
+  .mermaid .zoom-btn:hover { border-color: var(--border-hover); background: #f4f4f4; }
+  .mm-modal { position: fixed; inset: 0; background: rgba(0,0,0,.85); z-index: 100; display: none; align-items: center; justify-content: center; padding: 2.5rem 1.5rem; }
+  .mm-modal.open { display: flex; }
+  .mm-modal-inner { background: #fff; border-radius: 12px; padding: 1.5rem; max-width: 96vw; max-height: 92vh; overflow: auto; }
+  .mm-modal-inner svg { width: 100%; height: auto; max-width: none; }
+  .mm-close { position: fixed; top: .8rem; right: 1.2rem; font-size: 32px; line-height: 1; color: #fff; background: none; border: none; cursor: pointer; z-index: 101; }
   section.plan p.plan-note { color: var(--text-muted); font-size: 14px; }
   details.toggle { border: none; border-radius: 12px; margin: 0.7rem 0; background: var(--surface-raised); transition: box-shadow .15s cubic-bezier(0,0,.2,1); }
   details.toggle:hover { box-shadow: var(--shadow-md); }
@@ -76,9 +85,14 @@
     box-shadow: var(--shadow-sm); text-decoration: none; transition: background .15s ease-in-out;
   }
   .md-actions button:hover, .md-actions a.btn:hover { background: #333333; }
-  .md-actions a.btn.secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
-  .md-actions a.btn.secondary:hover { border-color: var(--border-hover); background: transparent; }
-  footer { text-align: center; color: var(--text-muted); font-size: 14px; padding: 2rem 1rem 3rem; border-top: 1px solid var(--border); }
+  .md-actions a.btn.secondary { background: #ffffff; border: 1px solid var(--border); color: var(--text); }
+  .md-actions a.btn.secondary:hover { border-color: var(--border-hover); background: #f4f4f4; }
+  footer { text-align: center; color: var(--text-muted); font-size: 14px; padding: 2.5rem 1rem 3.5rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+  footer .foot-closing { font-family: var(--font-head); font-size: 18px; color: var(--text); margin-bottom: .9rem; }
+  footer .foot-contact { font-size: 15px; margin-bottom: .5rem; }
+  footer .foot-contact a { color: var(--accent); text-decoration: none; }
+  footer .foot-contact a:hover { text-decoration: underline; }
+  footer .foot-meta { font-size: 12.5px; color: var(--text-muted); }
 </style>
 </head>
 <body>
@@ -92,7 +106,7 @@
   <p class="sub">Přihláška je sama ukázkou práce: markdown, agenti, iterace. Všechno je vypsané níž — a dole vpravo si ji můžete vzít jako čistý Markdown pro svoje agenty.</p>
   <div class="links">
     <a href="https://jakubryba.com">jakubryba.com</a>
-    <a href="https://linkedin.com/in/jakubryba">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/rybajakub/">LinkedIn</a>
     <a href="https://command-scribe-wiz.lovable.app/">Loňská přihláška</a>
     <a href="https://calm-completion-engine.lovable.app/">Pomodoro Flow</a>
     <a href="./landing/">Kampaň: AI Explorer</a>
@@ -100,7 +114,7 @@
 </header>
 <main id="content"></main>
 <section class="plan">
-  <h2 class="plan-title" id="plan-30-dnu">🗓 Prvních 30 dní — kompletní plán</h2>
+  <h2 class="plan-title" id="plan-30-dnu">🗓 30 dní v Aibility — a jak dál</h2>
   <p class="plan-note">Rozklikněte si jednotlivé části — nebo si stáhněte celý <a id="download-plan-inline" download="prvni-30-dnu.md" href="#">prvni-30-dnu.md</a>.</p>
   <div id="plan-content"></div>
 </section>
@@ -109,11 +123,15 @@
   <a class="btn secondary" id="download-md" download="prihlaska.md" href="#">⬇️ prihlaska.md</a>
   <a class="btn secondary" id="download-plan" download="prvni-30-dnu.md" href="#">⬇️ prvni-30-dnu.md</a>
 </div>
-<footer>Jakub Ryba · červenec 2026 · postaveno v markdownu, vykresleno v prohlížeči</footer>
+<footer>
+  <p class="foot-closing">Díky za váš čas — a těším se na vaši (klidně brutálně upřímnou) zpětnou vazbu 👋</p>
+  <p class="foot-contact"><strong>Jakub Ryba</strong> · <a href="https://jakubryba.com" target="_blank" rel="noopener">jakubryba.com</a> · <a href="https://www.linkedin.com/in/rybajakub/" target="_blank" rel="noopener">LinkedIn</a></p>
+  <p class="foot-meta">Přihláška postavená v markdownu, vykreslená v prohlížeči — Cursor + Claude Code · červenec 2026 🙂</p>
+</footer>
 <script type="text/markdown" id="md-source">
 # Přihláška — Head of Marketing @ Aibility
 
-**Jakub Ryba** · jakubryba.com · [LinkedIn](https://linkedin.com/in/jakubryba)
+**Jakub Ryba** · jakubryba.com · [LinkedIn](https://www.linkedin.com/in/rybajakub/)
 
 ---
 
@@ -121,29 +139,41 @@
 
 Ahoj,
 
-loni jsem se k vám hlásil s vibe-coded přihláškou a poznal Žanetu. Pár týdnů nato se mi nezávisle ozval Martin Imrich — všiml si Johnnyho, AI asistenta, kterého jsem si postavil na svém Mac Mini. Dali jsme call a potkali se osobně na střeše Scott.Weber. Tehdy to nedopadlo: vy jste se po vstupu Seyforu přeformovávali a já byl čerstvě v Direct Fidoo jako Head of Digital Sales.
+loni jsem se k vám hlásil s [vibe-coded přihláškou](https://command-scribe-wiz.lovable.app/) a poznal Žanetu. Tehdy to nedopadlo — vy jste se po vstupu Seyforu přeformovávali a měli fokus jinde (aspoň tak jsem to pochopil 🙂).
 
-Fast forward: Fidoo otočilo kormidlem, produkt s ambicí expanze se přestal stavět a šlo se na 50 % workforce — včetně mě ve zkušebce. (Férovka: AI se tam žije — skilly, gilda, vibe-coded appky na Azure. Big up.) S odstupem říkám: díky bohu. Potvrdilo se, co mi Martin na té střeše říkal o korporátech: všechno trvá dlouho. Já chci věci stavět, ne o nich donekonečna mluvit na schůzkách, kde je nikdo nemá zavlastněné — a zavlastnit je ani nejde, když v nich má prsty tolik lidí.
+Pár týdnů nato se mi nezávisle ozval Martin Imrich — všiml si Johnnyho, AI asistenta, kterého jsem si postavil na svém Mac Mini. Dali jsme call a potkali se osobně na střeše Scott.Weber v pražském Port7 i s Tomášem Paulusem. Byl jsem tenkrát 5. týden v Direct Fidoo jako Head of Digital Sales a chtěl jsem tomu dát šanci — kombinace ambiciózního produktu + AI-mindsetu promovaného celou firmou (sdílené skilly, vibe-coded appky na Azure, AI gilda…) mi byla velmi sympatická.
 
-Proto se hlásím znovu — a tentokrát to do sebe zapadá: role, timing i to, co stavím.
+Fast forward ⏩️ - Fidoo otočilo kormidlem, produkt s ambicí expanze se přestal stavět a šlo se na 50 % workforce — včetně mě ve zkušebce. A s odstupem si říkám „díky bohu". Potvrdilo se, co mi Martin na té střeše říkal o korporátech — všechno trvá dlouho. Já chci věci stavět, ne o nich donekonečna mluvit na schůzkách...
 
----
-
-## Proč mě dát na shortlist (TL;DR)
-
-Tři důkazy nahoře, zbytek přihlášky je podklad — proklikejte si, co vás zajímá:
-
-1. **6 let Head of Marketing v B2B SaaS** (Easy Redmine / Easy8, 80+ zemí). Přišel jsem jako první člověk v marketingu a vybudoval tým 1→8. Výsledky: MQL +30 % YoY tři roky po sobě, konverze MQL→SQL z 8 na 15 %. → [Co můžu nabídnout](#co-muzu-nabidnout)
-2. **Doložitelné řemeslo, ne jen tvrzení.** Jira migration funnel TOFU→BOFU — [autorská stránka](https://www.easy8.com/blog/jakub-ryba), [webinář](https://www.easy8.com/news/jira-servers-end-of-life-what-are-your-options-webinar), [průvodce migrací](https://www.easy8.com/news/jira-migration-doesnt-have-to-be-a-nightmare). Živé, k rozkliknutí. → [Jira funnel](#jira-migration-funnel--easy-redmineeasy8-hlavni-marketingova-reference)
-3. **Dnes to samé stavím s AI.** Nad vaším marketingem chci postavit „loop" — z jednoho zdroje víc výstupů přes validátor. → [Pitch](#pitch-marketingova-automatika-nad-aibility) · [Návrh prvních 30 dní](./prvni-30-dnu.md)
+Proto se hlásím znovu a IMHO to tentokrát do sebe zapadá — role, timing i to, co stavím.
 
 ---
 
-## Co právě stavím (building in public)
+## Co můžu nabídnout
 
-Nejsem ve fázi „mám hotovo a ukazuju" — jsem ve fázi **tvoření**. A přesně tenhle přístup chci přinést k vám.
+- **10 let v Easy Software, z toho 6 let Head of Marketing** (Easy Redmine, dnes [Easy8](https://www.easy8.com/))
+  - Globální B2B SaaS v 80+ zemích
+  - Přišel jsem jako první člověk v marketingu a postavil tým na 8 lidí — všechny role jsem si ale nejdřív odpracoval sám: solidní T-shape a i při osmi lidech pořád hands-on
+  - 30% meziroční růst MQL tři roky po sobě
+  - Konverzi MQL→SQL jsem zvedl z 8 na 15 % během 18 měsíců řízených komplexních změn (včetně nového positioningu značky)
+  - Tvůrčí proces mě uspokojuje víc než team-leading — proto mě láká to „Builder" v popisu téhle role
+- **AI-first builder**
+  - Cursor denně od října 2025, kdy jsem ho objevil na vašem kurzu (game changer loňského roku)
+  - Od jara jsem jel v Claude Code (podporovaný v Direct Fidoo) — teď se ke Cursoru postupně vracím, právě jsem si ho zase zaplatil
+- **[Stavím vlastní nástroje a agenty](#co-jsem-postavil-a-na-cem-pracuju)**
+  - Johnny na Mac Mini · Second Brain s agentem
+  - Automatizace v N8N · vibe-coded appky (Lovable / Bolt / Macaly)
+  - Rád bych na tom dál spolupracoval s vámi, ne jen díky vám
 
-### Second Brain s AI agentem *(stavím právě teď, červenec 2026)*
+Poznámka k mojí motivaci — loni jsem školil starosty obcí jednoho mikroregionu v základech AI. Předávání mě bavilo — ten moment, kdy někomu docvakne, co všechno s tím půjde. Nenaplňovala mě ale ta úroveň: přes den jsem vysvětloval základy, zatímco doma jsem si zkoušel věci úplně jiného charakteru — jsem early adopter, proto jsem si pořídil i Mac Mini a rozběhl na něm vlastního asistenta, i když jsem s tím do té doby neměl žádnou zkušenost. Potřebuju obojí najednou: šířit AI dál a zůstat přitom early adopter. A přesně to je pro mě Aibility — pomáhat dostat vaši metodiku a data do světa.
+
+---
+
+## Co jsem postavil a na čem pracuju
+
+Ukázky mojí práce — hotové věci i rozpracované. Proklikněte si, co vás zajímá.
+
+### Second Brain — osobní knowledge systém, kde AI agent běží ve smyčce (2026)
 
 Osobní knowledge systém na metodě PARA (Tiago Forte). Žije v iCloud Drive, synchronizuje se s iPhonem — capture trvá pár vteřin, třídění při zápisu neexistuje.
 
@@ -169,9 +199,12 @@ flowchart LR
 
 **Proč to sem patří:** nad marketingem Aibility bych rád postavil stejnou „automatiku". Jeden zdroj (webinář, kurz, case study) → agent → newsletter, posty, blog, lead magnet — s validátorem, ne s ručním promptováním. Viz [_flow-loop-engineering.md](./_flow-loop-engineering.md).
 
-### Johnny — vlastní AI asistent na Mac Mini
+![Dashboard nad Second Brainem — kanban a timeline dne, v barvách aibility.org](img/second-brain.png)
+*Ilustrace — dashboard, který jsem si nad Second Brainem postavil (kanban + timeline dne).*
 
-Začal jako chatbot — pak z něj byl celý lokální AI stack, který jsem si postavil bez jediné předchozí zkušenosti se servery. Mac Mini M4 jsem vybalil začátkem února 2026 a během pár intenzivních dní (včetně jedné noci do dvou do rána) na něm rozběhl:
+### Johnny — vlastní lokální AI asistent běžící na Mac Mini (2026)
+
+Začal jako chatbot — pak z něj byl celý lokální AI stack, který jsem si postavil bez jediné předchozí zkušenosti se servery. Mac Mini M4 jsem vybalil začátkem února 2026 a během pár dní na něm rozběhl:
 
 - **Lokální modely přes Ollama + Open WebUI s RAG knowledge base** — markdown soubory (brand voice, projekty a cíle, „soul" instrukce pro jednotlivé agenty), sync přes sdílenou iCloud složku
 - **Agenti na cronu:** News Monitor (ranní AI digest novinek) a Daily Ideas (každé ráno nápady k cíli z `goal.txt`, doručení na Telegram) — k tomu Telegram bot, Johnny v kapse
@@ -180,74 +213,37 @@ Začal jako chatbot — pak z něj byl celý lokální AI stack, který jsem si 
 - **Proč je tu:** díky němu se mi ozval **Martin Imrich** — všiml si, že AI nekonzumuju, ale stavím si vlastní nástroje. Call → osobní setkání na střeše Scott.Weber.
 - **Johnny → Second Brain:** v březnu přibyly Daily Ideas — a pak jsem na Johnnyho několik měsíců nesáhl. A právě to je jeho největší lekce: nejcennější nakonec nebyla infrastruktura, kterou jsem se učil stavět, ale kontext — markdown knowledge base, kterou modely čtou. Second Brain je ta lekce aplikovaná dál: žádný server, jen soubory + agent + smyčka.
 
-### Vlastní skilly — metodiky přepsané pro agenty *(květen–červen 2026)*
+### Pomodoro Flow — Pomodoro time + hudba (2025)
 
-Po BoostCamp workshopu v Direct Group jsem si metodiky nenechal v sešitě — přepsal jsem je do vlastních skillů, které dnes používá můj agent:
+Vibecoded appka, která kombinuje dvě věci, které mám rád: hudbu a Pomodoro techniku. Nápad → funkční produkt.
 
-- **`expert-panel`** — simulace panelu 3–5 reálných expertů s produktivní neshodou a syntézou; používám na validaci obsahu a rozhodnutí
-- **`prioritization-toolkit`** — výběr správné prioritizační metody pro daný kontext (impact/effort, MoSCoW, ICE, 80/20, multikriteriální tabulka)
-- **`hypothesis-workplan`** — převod issue tree na testovatelné hypotézy a plán práce (kdo, co, kdy, jak validuje)
-- **`game-communication-prep`** — příprava komunikace rámcem GAME (Goal, Audience, Message, Expression)
-- **`elevator-pitch`** — 1minutový pitch pro sponzory a vedení
-- **`html-presentation`** — z poznámek self-contained HTML prezentace
-
-Jednou popsaná dovednost, kterou pak agent drží v konzistentní kvalitě — a půjčit si ji může kdokoliv v týmu.
-
-### Pomodoro Flow *(2026)*
 - **Odkaz:** https://calm-completion-engine.lovable.app/
-- Vibecoded appka — Pomodoro timer + task list + focus hudba. Kombinuje dvě věci, které mám rád: hudbu a Pomodoro techniku. Nápad → funkční produkt.
+- **Jak to funguje:** nastavíte délku pomodoro bloku, zvolíte si hudbu (z YouTube nebo odjinud) a pracujete. Na konci bloku zazní zvukový signál, hudba se zastaví a následuje pauza.
 
-### Transcript tool ve Fidoo *(jaro 2026)*
+![Pomodoro Flow — timer s focus hudbou z YouTube](img/pomodoro-flow.png)
+
+### Transcript tool ve Fidoo — zpracování transkriptů porad z Teams do to-do (2026)
 - Stavěl jsem i v korporátu: nástroj na zpracování transkriptů porad z Teams — export → převod na markdown (včetně účastníků) → uložení do správné složky → prompt se skillem → hotová to-dočka z porady. Malá věc, každodenní úspora.
 
-### Loňská vibe-coded přihláška *(2025)*
+![Transcript Converter — nástroj postavený ve Fidoo](img/transcript-converter.png)
+
+### Loňská vibe-coded přihláška — interaktivní přihláška místo PDF (2025)
 - **Odkaz:** https://command-scribe-wiz.lovable.app/ — je pořád živá, klidně se podívejte
 - Interaktivní přihláška místo PDF — návrhy kampaní pro Aibility, můj tehdejší AI stack a konkrétní use cases:
   - Vytřídění hudební knihovny od duplicit
   - Interní etiketovací nástroj postavený ve třech různých appkách
   - Kampaň k Jira migraci — hlavní reference, má vlastní sekci níž
-- A je na ní vidět posun za ten rok: tehdy chatbot Johnny, dnes agentní Second Brain se smyčkou.
 
-### Jira migration funnel — Easy Redmine/Easy8 *(hlavní marketingová reference)*
+### Jira migration funnel — hlavní marketingová reference, funnel TOFU→BOFU (Easy Redmine/Easy8)
 - Kompletní edukativní funnel TOFU → BOFU, 25+ propojených výstupů (webináře, blogy, PDF, video, lead magnety). T-shape přes copy, SEO, PPC, socky, analytiku.
 - **Živé ukázky:** [moje autorská stránka na blogu](https://www.easy8.com/blog/jakub-ryba) · [webinář: Jira Server's end of life](https://www.easy8.com/news/jira-servers-end-of-life-what-are-your-options-webinar) · [step-by-step průvodce migrací](https://www.easy8.com/news/jira-migration-doesnt-have-to-be-a-nightmare)
 - **Lekce:** OKR (100+ klientů/rok) se nenaplnilo — silný marketing nestačí bez doménové znalosti a alignmentu se sales. Tohle beru s sebou a říkám to nahlas, protože vím, že upřímnost je vaše kultura.
 
-### Návrh prvních 30 dní + kampaň pro Aibility
-- **Odkaz:** [prvni-30-dnu.md](./prvni-30-dnu.md) — kompletní plán jako samostatný dokument
-- Marketing jako loop engineering, týden po týdnu: napojení na váš content engine, repurposing větev (YouTube Shorts z webinářů a nahrávek eventů), řízení PPC agentury, první kampaň.
-- K tomu [landing page kampaně](./landing/index.html) „Kolik % vašeho týmu je AI Explorer?" + ukázkový newsletter a LinkedIn posty z vašich veřejných dat
-
 ---
 
-## Co můžu nabídnout
+## O jakou spolupráci mám zájem
 
-- **10 let v Easy Software, z toho 6 let Head of Marketing** (Easy Redmine, dnes Easy8) — globální B2B SaaS v 80+ zemích. Přišel jsem jako první člověk v marketingu a postupně postavil tým na 8 lidí — ale všechny role jsem si nejdřív odpracoval sám: solidní T-shape, a i při osmi lidech pořád hands-on. 30% meziroční růst MQL tři roky po sobě, konverze MQL→SQL z 8 na 15 %. Tvůrčí proces mě uspokojuje víc než team-leading — proto mě láká to „Builder" v popisu téhle role.
-- **AI-first builder** — Cursor denně od října 2025, kdy jsem ho objevil na vašem kurzu (game changer loňského roku). Od jara jsem jel v Claude Code, protože ten byl v Direct Fidoo podporovaný — a teď se ke Cursoru postupně vracím, právě jsem si ho zase zaplatil.
-- **Stavím vlastní nástroje a agenty** — Johnny na Mac Mini, Second Brain s agentem, automatizace v N8N, vibe-coded appky (Lovable/Bolt/Macaly). Rád bych na tom dál spolupracoval s vámi, ne jen díky vám.
-
-Ještě jedna věc k motivaci: školil jsem starosty obcí jednoho mikroregionu v základech AI. Předávání mě bavilo — ten moment, kdy někomu docvakne, co všechno s tím půjde. Nenaplňovala mě ale ta úroveň: přes den jsem vysvětloval základy, zatímco doma jsem si zkoušel věci úplně jiného charakteru — jsem early adopter, proto jsem si pořídil i Mac Mini a rozběhl na něm vlastního asistenta, i když jsem s tím do té doby neměl žádnou zkušenost. Potřebuju obojí najednou: šířit AI dál a zůstat přitom early adopter. A přesně to je pro mě Aibility — pomáhat dostat vaši metodiku a data do světa.
-
----
-
-## Pitch: marketingová automatika nad Aibility
-
-Stavím si automatiku nad vlastním druhým mozkem — a chci postavit **marketingovou automatiku nad celým Aibility**:
-
-- **Cíl místo instrukce:** ne „napiš post", ale „z jednoho MD vznikne 5 výstupů a každý projde validátorem"
-- **Smyčka:** průzkum → plán → akce → ověření (objektivní validátor, ne „líbí se mi to?")
-- **Paměť:** GitHub + markdown jako knowledge base (content-log)
-- **Tréninkový režim:** human gate na začátku → postupná autonomie
-
-Detail v [prvni-30-dnu.md](./prvni-30-dnu.md).
-
----
-
-## Forma spolupráce
-
-- [x] **Full-time** — ověřil jsem si, že chci fokus na jednu věc. Nehledám portfolio úvazků, hledám roli, do které dám celý svůj čas.
-- [x] Klidně začneme projektově / akcelerátorem (3–6 měsíců) — jak sami píšete
-- [ ] Part-time
+Hledám **full-time** — ověřil jsem si, že chci fokus na jednu věc, ne portfolio úvazků; roli, do které dám celý svůj čas. Klidně ale začneme projektově nebo akcelerátorem (3–6 měsíců), jak sami píšete. A pokud to klikne na obou stranách, jsem otevřený i podílu, který nabízíte.
 
 ---
 
@@ -256,15 +252,18 @@ Detail v [prvni-30-dnu.md](./prvni-30-dnu.md).
 Na AI víc mluvím, než píšu — je to prostě rychlejší. Wispr Flow jsem si zamiloval.
 
 - **Denně:** Cursor (hlavní nástroj, objevený díky vašemu kurzu) · Claude / Claude Code · ChatGPT · Wispr Flow (voice-to-text, game-changer)
-- **Podle potřeby:** Gemini / Perplexity — research · N8N — automatizace · Lovable / Bolt / Macaly — rychlé prototypy · Gamma, Warp, Descript, Granola — produkce a meeting notes
+- **Research:** Gemini · Perplexity · NotebookLM
+- **Automatizace:** N8N
+- **Rychlé prototypy:** Lovable · Bolt · Macaly
+- **Produkce a meeting notes:** Gamma · Warp · Descript · Granola
 
-(Ano, taky jsem si koupil Lenny Product Pass :))
+(Ano, taky jsem si zakoupil Lennyho Product Pass 🙂)
 
 ---
 
-## Jak vznikala tahle přihláška
+## Jak vznikala tato přihláška
 
-Ne na jeden zátah — jako malý projekt v Gitu. A ukážu vám celý proces, protože přesně takhle bych pracoval i pro vás:
+Ne na jeden zátah — jako malý projekt v Gitu. Ve jménu building in public vám tu ukazuji celý proces (viz diagram):
 
 ```mermaid
 flowchart LR
@@ -292,9 +291,7 @@ flowchart LR
     N --> O["📮 Odeslání"]
 ```
 
-V jednu chvíli jsem na tom měl otevřených pět terminálů — obsah, design, git, web, podklady — a stáhl jsem je zpátky na jeden, když si začaly šlapat po souborech. I to je lekce.
-
-První výstup nikdy neposílám. Tohle je verze, která přežila.
+Jedna z lessons learned — v jednu chvíli jsem na tom měl otevřených pět terminálů (obsah, design, git, web, podklady) a stáhl jsem je zpátky na jeden, když si začaly šlapat po souborech.
 
 A jedna nabídka k tomu: klidně si dejme místo části pohovoru 30 minut, kdy nasdílím celou plochu a ukážu, jak reálně pracuju — kontext, agenti, iterace, nic zakrytého. A budu rád za upřímný feedback na tuhle přihlášku, i kdyby to nedopadlo.
 
@@ -314,8 +311,6 @@ A jedna nabídka k tomu: klidně si dejme místo části pohovoru 30 minut, kdy 
 | https://command-scribe-wiz.lovable.app/ | Loňská vibe-coded přihláška |
 | https://jakubryba.com | Online CV |
 
-Všechno je záměrně markdown — pro vás i pro vaše agenty. Hoďte si přihlášku do svého Clauda a nechte si udělat oponenturu.
-
 ---
 
 </script>
@@ -324,6 +319,15 @@ Všechno je záměrně markdown — pro vás i pro vaše agenty. Hoďte si přih
 
 > Návrh, jak bych rozjel AI-first marketing — od auditu po první měřitelnou kampaň.
 > Postaveno z veřejných zdrojů (web, kariérní stránka, produktové stránky, veřejný obsah týmu).
+
+**Vize (jak dál):** Stavím si automatiku nad vlastním druhým mozkem — a chci postavit **marketingovou automatiku nad celým Aibility**:
+
+- **Cíl místo instrukce:** ne „napiš post", ale „z jednoho MD vznikne 5 výstupů a každý projde validátorem"
+- **Smyčka:** průzkum → plán → akce → ověření (objektivní validátor, ne „líbí se mi to?")
+- **Paměť:** GitHub + markdown jako knowledge base (content-log)
+- **Tréninkový režim:** human gate na začátku → postupná autonomie
+
+Prvních 30 dní je konkrétní start téhle vize:
 
 ---
 
@@ -353,16 +357,12 @@ Nejste ten, kdo ručně posouvá každou kostku. Jste ten, kdo rozhoduje, **kde 
 
 Každý marketingový loop u Aibility běží ve stejném rytmu:
 
-```
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│ PRŮZKUM  │ →  │   PLÁN   │ →  │   AKCE   │ →  │ OVĚŘENÍ  │ ─┐
-│          │    │          │    │          │    │          │  │
-│ Co existuje│  │ Co udělat│  │ Proveď   │  │ Prošlo?  │  │
-│ v repu /  │  │ jako     │  │ (repurpose│  │ Objektivní│  │
-│ na trhu   │  │ další krok│  │ post, LP) │  │ validátor │  │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘  │
-     ↑                                                          │
-     └──────────── dokud není splněn měřitelný cíl ─────────────┘
+```mermaid
+flowchart LR
+    P["PRŮZKUM<br>co existuje v repu / na trhu"] --> PL["PLÁN<br>co udělat jako další krok"]
+    PL --> A["AKCE<br>proveď — repurpose, post, LP"]
+    A --> O["OVĚŘENÍ<br>prošlo? objektivní validátor"]
+    O -->|"dokud není splněn měřitelný cíl"| P
 ```
 
 **Ověření ≠ „vypadá to dobře?"** AI má sklon vlastní práci hodnotit příznivě. Skutečný validátor je objektivní: ano/ne.
@@ -378,21 +378,12 @@ Příklady validátorů pro marketing:
 
 **Sdílená paměť** = GitHub markdown (vaše DNA). Digitální tabule, ze které všechny loopy čtou a zapisují — co šlo ven, co fungovalo, co se neopakuje.
 
-```
-                    ┌─────────────────────┐
-                    │  MEMORY (GitHub MD) │
-                    │  content-log.md     │
-                    └──────────┬──────────┘
-           ┌───────────────────┼───────────────────┐
-           ▼                   ▼                   ▼
-   ┌───────────────┐  ┌───────────────┐  ┌───────────────┐
-   │ LOOP 1        │  │ LOOP 2        │  │ LOOP 3        │
-   │ Content       │  │ Research      │  │ Campaign      │
-   │ repurposing   │  │ Scout         │  │ builder       │
-   │               │  │               │  │               │
-   │ MD → N výstupů│  │ Reddit/X scan │  │ Propojí L1+L2 │
-   │               │  │ → témata      │  │ → funnel live │
-   └───────────────┘  └───────────────┘  └───────────────┘
+```mermaid
+flowchart TB
+    M["MEMORY — GitHub MD · content-log.md<br>sdílená DNA, ze které loopy čtou i zapisují"]
+    M --> L1["LOOP 1 — Content<br>repurposing<br>MD → N výstupů"]
+    M --> L2["LOOP 2 — Research Scout<br>Reddit/X scan<br>→ témata"]
+    M --> L3["LOOP 3 — Campaign builder<br>propojí L1+L2<br>→ funnel live"]
 ```
 
 *(Inspirace: paralelní agenti z videa — jeden staví quiz, druhý skenuje trendy, třetí propojí do kampaně. U vás už Research Scout existuje.)*
@@ -432,7 +423,7 @@ Aibility má něco, co většina AI vzdělávacích firem nemá: **reálná data
 | B2B klienti (NN, O2, Seyfor…) | Social proof, ABM kampaně |
 | EU AI Act compliance angle | B2B hook pro management |
 
-**Mezera:** Obsah existuje, ale **marketingové loopy** — systémy, které obsah nacházejí, zpracovávají, ověřují a publikují bez ručního řízení každého kroku — zatím nejsou vidět jako celek. Částečně už u vás běží (pondělní posty). Moje role: z toho udělat architekturu, ne sbírku jednotlivých hacků.
+**Mezera:** Obsah existuje, ale **marketingové loopy** — systémy, které obsah nacházejí, zpracovávají, ověřují a publikují bez ručního řízení každého kroku — zatím nejsou zvenku vidět jako celek. Částečně už u vás běží (pondělní posty). Moje role: z toho udělat architekturu, ne sbírku jednotlivých hacků.
 
 ---
 
@@ -485,18 +476,14 @@ Na konci 30 dní chci mít:
 Špatně: *„Napiš mi post z tohoto webináře."*
 Správně: *„Z každého nového MD v repu vznikne 5 výstupů ve frontě. Každý projde objektivním validátorem. Nezastavuj se, dokud validátor neřekne ano u všech."*
 
-```
-PRŮZKUM          PLÁN              AKCE              OVĚŘENÍ
-────────         ────              ────              ───────
-Co je v repu  →  Které formáty  →  Repurpose     →  Validátor:
-/ na trhu?       z tohoto MD?      agent tvoří       CTA? Fakta?
-                                   výstupy           Brand? Délka?
-                                                        │
-                    ↑───────────────────────────────────┘
-                    (loop, dokud vše neprojde)
-                              ↓
-                    MEMORY: content-log.md
-                    HUMAN GATE (tréninkový režim)
+```mermaid
+flowchart LR
+    P["PRŮZKUM<br>co je v repu / na trhu?"] --> PL["PLÁN<br>které formáty z tohoto MD?"]
+    PL --> A["AKCE<br>repurpose agent tvoří výstupy"]
+    A --> O["OVĚŘENÍ<br>validátor: CTA? fakta? brand? délka?"]
+    O -->|"loop, dokud vše neprojde"| P
+    O --> MEM["MEMORY: content-log.md"]
+    MEM --> HG["HUMAN GATE — tréninkový režim"]
 ```
 
 ### Co postavím (architektura, ne jednotlivé posty)
@@ -527,7 +514,7 @@ AI si vždycky vlastní práci ohodnotí na jedničku. Proto:
 
 **Proč tato kampaň:**
 - Využívá unikátní SP™ data (43 % Explorer, 12 % Builder…)
-- Assessment je vstupní produkt (490 Kč) i B2B door opener
+- Assessment je vstupní produkt (kvíz zdarma → plný profil 490 Kč) i B2B door opener
 - Diferenciace: ne „naučte se ChatGPT", ale „změřte, kde jste"
 
 **Kampaň jako loop** s měřitelným cílem:
@@ -536,15 +523,13 @@ AI si vždycky vlastní práci ohodnotí na jedničku. Proto:
 |--------------------|---------------|
 | „Udělej poutavou kampaň o AI Explorer" | „Assessment starts ≥ 50/týden z LinkedIn trafficu, landing konverze ≥ 8 %" |
 
-```
-PRŮZKUM              PLÁN                 AKCE                OVĚŘENÍ
-SP™ data (43%       Který insight,      Landing + 5 postů   Landing funguje?
-Explorer…)           jaký funnel,         + 3 e-maily         Formulář OK?
-                     které kanály                             CTR ≥ X%?
-                                                              Assessment starts?
-         ↑────────────────────────────────────────────────────────┘
-         MEMORY: campaign-log.md → learnings zpět do content loopu
-         GUARDRAIL: human gate před PPC spend (tréninkový režim)
+```mermaid
+flowchart LR
+    P["PRŮZKUM<br>SP™ data — 43 % Explorer…"] --> PL["PLÁN<br>který insight, jaký funnel, které kanály"]
+    PL --> A["AKCE<br>landing + 5 postů + 3 e-maily"]
+    A --> O["OVĚŘENÍ<br>landing funguje? formulář OK? CTR? assessment starts?"]
+    O -->|"learnings zpět do content loopu"| P
+    O --> G["MEMORY: campaign-log.md · GUARDRAIL: human gate před PPC spend"]
 ```
 
 **Paralelní loopy (M2 preview):** Zatímco kampaň běží, Research Scout loop skenuje trendy → témata pro další iteraci. Sdílená paměť = GitHub MD.
@@ -555,7 +540,7 @@ LinkedIn post s datovým insightem
     ↓
 Landing page: „Zjistěte, kde je váš tým" (B2B) / „Zjistěte svůj AI profil" (B2C)
     ↓
-SP™ Assessment (zdarma / 490 Kč)
+SP™ Assessment (kvíz zdarma, plný profil 490 Kč)
     ↓
 E-mail sequence (3 e-maily): výsledky → tipy → kurz/foundations
     ↓
@@ -595,31 +580,22 @@ Jednoduchý přehled (klidně Vercel + data z analytics):
 - **Rozhodnutí:** které loopy můžu pustit ze řetězu (validátory fungují → méně human gates)
 - Návrh měsíce 2: paralelní loopy (Research Scout + content + kampaň), škálování
 
-**Metriky týdne 4:** dashboard live, retro hotové, plán M2, min. 2 loopy dokumentované, 1 loop připravený jako kandidát na vyšší autonomii (po vaší kontrole)
+**Metriky týdne 4:** dashboard live, retro hotové, plán M2, min. 2 loopy dokumentované, 1 loop připravený jako kandidát na vyšší autonomii (HITL — na začátku více, postupně méně)
 
 ---
 
 ## Systém, který chci postavit (za 90 dní, ale základy v M1)
 
+```mermaid
+flowchart LR
+    TR["TRIGGERS<br>pondělní cron · nový MD v Gitu<br>· assessment sync · market signals"] --> LO["LOOPS<br>Content loop — repurpose + evaluator<br>Campaign loop — insight → funnel"]
+    LO --> CH["CHANNELS<br>Newsletter · LinkedIn · Web/Blog<br>· PPC Ads · E-mail"]
+    MEM["MEMORY — GitHub MD<br>metriky · learnings · content-log"] -.-> LO
+    LO -.-> MEM
+    G["GUARDRAILS<br>human gates · brand voice · cost limits"] -.-> LO
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│              AIBILITY MARKETING LOOP ENGINE                     │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  TRIGGERS              LOOPS                 CHANNELS           │
-│  ─────────             ─────                 ────────           │
-│  Pondělní cron    →   Content loop      →   Newsletter          │
-│  Nový MD v Gitu       (repurpose +           LinkedIn           │
-│  Assessment sync       evaluator)            Web/Blog           │
-│  Market signals   →   Campaign loop     →   PPC Ads             │
-│                       (insight → funnel)     E-mail             │
-│                                                                 │
-│  MEMORY (GitHub MD)  ←  metriky, learnings, content-log        │
-│  GUARDRAILS: human gates, brand voice, cost limits              │
-│                                                                 │
-│  MŮJ ROLE: strategický architekt loopů — ne operátor každého kroku│
-└─────────────────────────────────────────────────────────────────┘
-```
+
+*Moje role: strategický architekt loopů — ne operátor každého kroku.*
 
 ### Roadmap loopů (M1 → M3)
 
@@ -634,44 +610,6 @@ Jednoduchý přehled (klidně Vercel + data z analytics):
 
 ---
 
-## Co od týmu potřebuji (minimálně)
-
-| Co | Kdy | Kolik času |
-|----|-----|------------|
-| Přístup k analytics, newsletter tool, sociálním profilům | Den 1 | — |
-| 60min sync: priority, off-limits, brand | Den 5 | 1h |
-| Ukázka interních dat z assessmentu (anonymizovaná) | Týden 1 | async |
-| Feedback na první newsletter + posty | Týden 2 | 30min |
-| Kontakt na PPC agenturu | Týden 3 | async |
-| 30min retro | Den 30 | 30min |
-
-**Celkem: ~3 hodiny synců za měsíc.** Zbytek = stavění.
-
----
-
-## Forma spolupráce
-
-**Full-time** — ověřil jsem si, že chci fokus na jednu věc; hledám roli, do které dám celý svůj čas. Klidně ale začneme projektově / akcelerátorem (3–6 měsíců), jak sami píšete — a pokud to klikne na obou stranách, FT s equity perspektivou.
-
----
-
-## Proč já — Jakub Ryba
-
-**10 let full-spectrum marketingu** (Easy Redmine — první markeťák, T-shape přes copy, SEO, PPC, socky, analytiku, kreativu) + **AI-first builder** (Cursor denně, N8N, vibe coding v Lovable/Bolt/Macaly).
-
-Loni jsem se hlásil do Aibility s vibe-coded přihláškou a poznal Žanetu. Od té doby: Cursor jako hlavní nástroj, AI Marketing Masterclass, nové buildy (Pomodoro app, ticketovací nástroje). Sleduju vaše morning shows a vím, jak tým pracuje.
-
-**Co přináším navíc oproti typickému kandidátovi:**
-- Umím postavit funnel od nápadu po výstup — reference: Jira migration kampaň (25+ propojených kusů obsahu)
-- **Myslím v loop engineeringu** — role architekta, ne mikro-manažera promptů. Definuji měřitelné cíle, objektivní validátory a paměť — systém iteruje sám (inspirace: [Marek Bartoš / Colbrain](https://www.youtube.com/watch?v=DvqGkGqjTHo))
-- Umím být upřímný o tom, co nefungovalo — a iterovat (OKR se nenaplnilo, vím proč)
-- Znám vaši veřejnou kulturu a produkty — nepotřebuju týdny, než se zorientuju; první výstupy dodám hned
-- Přicházím s hotovou prací, ne plánem — viz tento dokument, landing page a ukázkové výstupy
-
-Portfolio: [jakubryba.com](https://jakubryba.com) · [loňská přihláška](https://command-scribe-wiz.lovable.app/) · [Pomodoro Flow](https://calm-completion-engine.lovable.app/)
-
----
-
 *Inspirace: Loop Engineering — Marek Bartoš (Colbrain), Boris Cherny, Addy Osmani. Aplikováno na marketing Aibility.*
 </script>
 <script type="module">
@@ -681,7 +619,9 @@ Portfolio: [jakubryba.com](https://jakubryba.com) · [loňská přihláška](htt
   const md = document.getElementById("md-source").textContent.trim();
   const planMd = document.getElementById("plan-source").textContent.trim();
 
-  document.getElementById("content").innerHTML = marked.parse(md);
+  // Pro zobrazení skryj duplicitní H1 + kontaktní řádek (hero je už má); download/copy = plná verze
+  const displayMd = md.replace(/^[\s\S]*?(?=^## )/m, "");
+  document.getElementById("content").innerHTML = marked.parse(displayMd);
 
   // 30denní plán → rozbalovače po h2 sekcích (Notion-style)
   const planHtml = document.createElement("div");
@@ -713,8 +653,35 @@ Portfolio: [jakubryba.com](https://jakubryba.com) · [loňská přihláška](htt
     div.textContent = code.textContent;
     code.closest("pre").replaceWith(div);
   });
-  mermaid.initialize({ startOnLoad: false, theme: "neutral", flowchart: { useMaxWidth: false } });
+  mermaid.initialize({ startOnLoad: false, theme: "neutral", flowchart: { useMaxWidth: false }, themeVariables: { fontSize: "10px" } });
+  // Mermaid uvnitř zavřeného <details> se nevykreslí (nulová velikost) → dočasně otevřít po dobu renderu
+  const _closedDetails = [...document.querySelectorAll("details:not([open])")];
+  _closedDetails.forEach(d => d.open = true);
   await mermaid.run();
+  _closedDetails.forEach(d => d.open = false);
+
+  // „Co právě stavím" — každý projekt (h3) do rozbalovače (default zavřené = seznam headlinů)
+  const stavimH = [...document.querySelectorAll("#content h2")].find(h => /postavil a na čem pracuju/i.test(h.textContent));
+  if (stavimH) {
+    const between = [];
+    for (let n = stavimH.nextElementSibling; n && n.tagName !== "H2"; n = n.nextElementSibling) between.push(n);
+    let body = null;
+    between.forEach(node => {
+      if (node.tagName === "H3") {
+        const det = document.createElement("details");
+        det.className = "toggle";
+        const sum = document.createElement("summary");
+        sum.innerHTML = node.innerHTML;
+        body = document.createElement("div");
+        body.className = "toggle-body";
+        det.appendChild(sum);
+        det.appendChild(body);
+        node.replaceWith(det);
+      } else if (body) {
+        body.appendChild(node);
+      }
+    });
+  }
 
   // TOC z h2 nadpisů + scroll-spy
   const slug = t => t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
@@ -738,6 +705,43 @@ Portfolio: [jakubryba.com](https://jakubryba.com) · [loňská přihláška](htt
   }, { rootMargin: "-10% 0px -70% 0px" });
   headings.forEach(h => observer.observe(h));
 
+  // Externí odkazy → nový tab
+  document.querySelectorAll('main a[href^="http"]').forEach(a => {
+    if (a.host !== location.host) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+  });
+
+  // Přílohy: „(stáhnout vše)" v nadpisu + sloupec Stáhnout u lokálních souborů
+  const prilohyH = [...document.querySelectorAll("main h2")].find(h => /Přílohy/i.test(h.textContent));
+  if (prilohyH) {
+    const all = document.createElement("a");
+    all.href = "https://github.com/rybajacob-hub/prihlaska-aibility/archive/refs/heads/main.zip";
+    all.textContent = "(stáhnout vše)";
+    all.target = "_blank"; all.rel = "noopener";
+    all.style.cssText = "font-size:0.6em;font-weight:400;margin-left:12px;";
+    prilohyH.appendChild(all);
+    let tbl = prilohyH.nextElementSibling;
+    while (tbl && tbl.tagName !== "TABLE") tbl = tbl.nextElementSibling;
+    if (tbl) {
+      const hr = tbl.querySelector("thead tr");
+      if (hr) { const th = document.createElement("th"); th.textContent = "Stáhnout"; hr.appendChild(th); }
+      tbl.querySelectorAll("tbody tr").forEach(tr => {
+        const td = document.createElement("td");
+        const link = tr.querySelector("a");
+        const href = link && link.getAttribute("href");
+        if (href && !/^https?:/i.test(href) && /\.(md|html)$/i.test(href)) {
+          const dl = document.createElement("a");
+          dl.href = href;
+          dl.setAttribute("download", href.split("/").pop());
+          dl.textContent = /\.html$/i.test(href) ? "⬇︎ .html" : "⬇︎ .md";
+          td.appendChild(dl);
+        } else {
+          td.textContent = "—";
+        }
+        tr.appendChild(td);
+      });
+    }
+  }
+
   const copyBtn = document.getElementById("copy-md");
   copyBtn.addEventListener("click", async () => {
     await navigator.clipboard.writeText(md);
@@ -749,6 +753,30 @@ Portfolio: [jakubryba.com](https://jakubryba.com) · [loňská přihláška](htt
   document.getElementById("download-md").href = mdUrl;
   document.getElementById("download-plan").href = planUrl;
   document.getElementById("download-plan-inline").href = planUrl;
+
+  // Mermaid → tlačítko „Zvětšit" + fullscreen pop-up
+  const mmModal = document.createElement("div");
+  mmModal.className = "mm-modal";
+  mmModal.innerHTML = '<button class="mm-close" aria-label="Zavřít">×</button><div class="mm-modal-inner"></div>';
+  document.body.appendChild(mmModal);
+  const mmInner = mmModal.querySelector(".mm-modal-inner");
+  const closeMM = () => { mmModal.classList.remove("open"); mmInner.innerHTML = ""; };
+  mmModal.querySelector(".mm-close").addEventListener("click", closeMM);
+  mmModal.addEventListener("click", e => { if (e.target === mmModal) closeMM(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeMM(); });
+  document.querySelectorAll(".mermaid").forEach(m => {
+    const svg = m.querySelector("svg");
+    if (!svg) return;
+    const btn = document.createElement("button");
+    btn.className = "zoom-btn";
+    btn.textContent = "⤢ Zvětšit";
+    btn.addEventListener("click", () => {
+      mmInner.innerHTML = "";
+      mmInner.appendChild(svg.cloneNode(true));
+      mmModal.classList.add("open");
+    });
+    m.appendChild(btn);
+  });
 </script>
 </body>
 </html>

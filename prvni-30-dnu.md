@@ -3,6 +3,15 @@
 > Návrh, jak bych rozjel AI-first marketing — od auditu po první měřitelnou kampaň.
 > Postaveno z veřejných zdrojů (web, kariérní stránka, produktové stránky, veřejný obsah týmu).
 
+**Vize (jak dál):** Stavím si automatiku nad vlastním druhým mozkem — a chci postavit **marketingovou automatiku nad celým Aibility**:
+
+- **Cíl místo instrukce:** ne „napiš post", ale „z jednoho MD vznikne 5 výstupů a každý projde validátorem"
+- **Smyčka:** průzkum → plán → akce → ověření (objektivní validátor, ne „líbí se mi to?")
+- **Paměť:** GitHub + markdown jako knowledge base (content-log)
+- **Tréninkový režim:** human gate na začátku → postupná autonomie
+
+Prvních 30 dní je konkrétní start téhle vize:
+
 ---
 
 ## Filozofie: Loop Engineering pro marketing
@@ -31,16 +40,12 @@ Nejste ten, kdo ručně posouvá každou kostku. Jste ten, kdo rozhoduje, **kde 
 
 Každý marketingový loop u Aibility běží ve stejném rytmu:
 
-```
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│ PRŮZKUM  │ →  │   PLÁN   │ →  │   AKCE   │ →  │ OVĚŘENÍ  │ ─┐
-│          │    │          │    │          │    │          │  │
-│ Co existuje│  │ Co udělat│  │ Proveď   │  │ Prošlo?  │  │
-│ v repu /  │  │ jako     │  │ (repurpose│  │ Objektivní│  │
-│ na trhu   │  │ další krok│  │ post, LP) │  │ validátor │  │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘  │
-     ↑                                                          │
-     └──────────── dokud není splněn měřitelný cíl ─────────────┘
+```mermaid
+flowchart LR
+    P["PRŮZKUM<br>co existuje v repu / na trhu"] --> PL["PLÁN<br>co udělat jako další krok"]
+    PL --> A["AKCE<br>proveď — repurpose, post, LP"]
+    A --> O["OVĚŘENÍ<br>prošlo? objektivní validátor"]
+    O -->|"dokud není splněn měřitelný cíl"| P
 ```
 
 **Ověření ≠ „vypadá to dobře?"** AI má sklon vlastní práci hodnotit příznivě. Skutečný validátor je objektivní: ano/ne.
@@ -56,21 +61,12 @@ Příklady validátorů pro marketing:
 
 **Sdílená paměť** = GitHub markdown (vaše DNA). Digitální tabule, ze které všechny loopy čtou a zapisují — co šlo ven, co fungovalo, co se neopakuje.
 
-```
-                    ┌─────────────────────┐
-                    │  MEMORY (GitHub MD) │
-                    │  content-log.md     │
-                    └──────────┬──────────┘
-           ┌───────────────────┼───────────────────┐
-           ▼                   ▼                   ▼
-   ┌───────────────┐  ┌───────────────┐  ┌───────────────┐
-   │ LOOP 1        │  │ LOOP 2        │  │ LOOP 3        │
-   │ Content       │  │ Research      │  │ Campaign      │
-   │ repurposing   │  │ Scout         │  │ builder       │
-   │               │  │               │  │               │
-   │ MD → N výstupů│  │ Reddit/X scan │  │ Propojí L1+L2 │
-   │               │  │ → témata      │  │ → funnel live │
-   └───────────────┘  └───────────────┘  └───────────────┘
+```mermaid
+flowchart TB
+    M["MEMORY — GitHub MD · content-log.md<br>sdílená DNA, ze které loopy čtou i zapisují"]
+    M --> L1["LOOP 1 — Content<br>repurposing<br>MD → N výstupů"]
+    M --> L2["LOOP 2 — Research Scout<br>Reddit/X scan<br>→ témata"]
+    M --> L3["LOOP 3 — Campaign builder<br>propojí L1+L2<br>→ funnel live"]
 ```
 
 *(Inspirace: paralelní agenti z videa — jeden staví quiz, druhý skenuje trendy, třetí propojí do kampaně. U vás už Research Scout existuje.)*
@@ -110,7 +106,7 @@ Aibility má něco, co většina AI vzdělávacích firem nemá: **reálná data
 | B2B klienti (NN, O2, Seyfor…) | Social proof, ABM kampaně |
 | EU AI Act compliance angle | B2B hook pro management |
 
-**Mezera:** Obsah existuje, ale **marketingové loopy** — systémy, které obsah nacházejí, zpracovávají, ověřují a publikují bez ručního řízení každého kroku — zatím nejsou vidět jako celek. Částečně už u vás běží (pondělní posty). Moje role: z toho udělat architekturu, ne sbírku jednotlivých hacků.
+**Mezera:** Obsah existuje, ale **marketingové loopy** — systémy, které obsah nacházejí, zpracovávají, ověřují a publikují bez ručního řízení každého kroku — zatím nejsou zvenku vidět jako celek. Částečně už u vás běží (pondělní posty). Moje role: z toho udělat architekturu, ne sbírku jednotlivých hacků.
 
 ---
 
@@ -163,18 +159,14 @@ Na konci 30 dní chci mít:
 Špatně: *„Napiš mi post z tohoto webináře."*
 Správně: *„Z každého nového MD v repu vznikne 5 výstupů ve frontě. Každý projde objektivním validátorem. Nezastavuj se, dokud validátor neřekne ano u všech."*
 
-```
-PRŮZKUM          PLÁN              AKCE              OVĚŘENÍ
-────────         ────              ────              ───────
-Co je v repu  →  Které formáty  →  Repurpose     →  Validátor:
-/ na trhu?       z tohoto MD?      agent tvoří       CTA? Fakta?
-                                   výstupy           Brand? Délka?
-                                                        │
-                    ↑───────────────────────────────────┘
-                    (loop, dokud vše neprojde)
-                              ↓
-                    MEMORY: content-log.md
-                    HUMAN GATE (tréninkový režim)
+```mermaid
+flowchart LR
+    P["PRŮZKUM<br>co je v repu / na trhu?"] --> PL["PLÁN<br>které formáty z tohoto MD?"]
+    PL --> A["AKCE<br>repurpose agent tvoří výstupy"]
+    A --> O["OVĚŘENÍ<br>validátor: CTA? fakta? brand? délka?"]
+    O -->|"loop, dokud vše neprojde"| P
+    O --> MEM["MEMORY: content-log.md"]
+    MEM --> HG["HUMAN GATE — tréninkový režim"]
 ```
 
 ### Co postavím (architektura, ne jednotlivé posty)
@@ -205,7 +197,7 @@ AI si vždycky vlastní práci ohodnotí na jedničku. Proto:
 
 **Proč tato kampaň:**
 - Využívá unikátní SP™ data (43 % Explorer, 12 % Builder…)
-- Assessment je vstupní produkt (490 Kč) i B2B door opener
+- Assessment je vstupní produkt (kvíz zdarma → plný profil 490 Kč) i B2B door opener
 - Diferenciace: ne „naučte se ChatGPT", ale „změřte, kde jste"
 
 **Kampaň jako loop** s měřitelným cílem:
@@ -214,15 +206,13 @@ AI si vždycky vlastní práci ohodnotí na jedničku. Proto:
 |--------------------|---------------|
 | „Udělej poutavou kampaň o AI Explorer" | „Assessment starts ≥ 50/týden z LinkedIn trafficu, landing konverze ≥ 8 %" |
 
-```
-PRŮZKUM              PLÁN                 AKCE                OVĚŘENÍ
-SP™ data (43%       Který insight,      Landing + 5 postů   Landing funguje?
-Explorer…)           jaký funnel,         + 3 e-maily         Formulář OK?
-                     které kanály                             CTR ≥ X%?
-                                                              Assessment starts?
-         ↑────────────────────────────────────────────────────────┘
-         MEMORY: campaign-log.md → learnings zpět do content loopu
-         GUARDRAIL: human gate před PPC spend (tréninkový režim)
+```mermaid
+flowchart LR
+    P["PRŮZKUM<br>SP™ data — 43 % Explorer…"] --> PL["PLÁN<br>který insight, jaký funnel, které kanály"]
+    PL --> A["AKCE<br>landing + 5 postů + 3 e-maily"]
+    A --> O["OVĚŘENÍ<br>landing funguje? formulář OK? CTR? assessment starts?"]
+    O -->|"learnings zpět do content loopu"| P
+    O --> G["MEMORY: campaign-log.md · GUARDRAIL: human gate před PPC spend"]
 ```
 
 **Paralelní loopy (M2 preview):** Zatímco kampaň běží, Research Scout loop skenuje trendy → témata pro další iteraci. Sdílená paměť = GitHub MD.
@@ -233,7 +223,7 @@ LinkedIn post s datovým insightem
     ↓
 Landing page: „Zjistěte, kde je váš tým" (B2B) / „Zjistěte svůj AI profil" (B2C)
     ↓
-SP™ Assessment (zdarma / 490 Kč)
+SP™ Assessment (kvíz zdarma, plný profil 490 Kč)
     ↓
 E-mail sequence (3 e-maily): výsledky → tipy → kurz/foundations
     ↓
@@ -273,31 +263,22 @@ Jednoduchý přehled (klidně Vercel + data z analytics):
 - **Rozhodnutí:** které loopy můžu pustit ze řetězu (validátory fungují → méně human gates)
 - Návrh měsíce 2: paralelní loopy (Research Scout + content + kampaň), škálování
 
-**Metriky týdne 4:** dashboard live, retro hotové, plán M2, min. 2 loopy dokumentované, 1 loop připravený jako kandidát na vyšší autonomii (po vaší kontrole)
+**Metriky týdne 4:** dashboard live, retro hotové, plán M2, min. 2 loopy dokumentované, 1 loop připravený jako kandidát na vyšší autonomii (HITL — na začátku více, postupně méně)
 
 ---
 
 ## Systém, který chci postavit (za 90 dní, ale základy v M1)
 
+```mermaid
+flowchart LR
+    TR["TRIGGERS<br>pondělní cron · nový MD v Gitu<br>· assessment sync · market signals"] --> LO["LOOPS<br>Content loop — repurpose + evaluator<br>Campaign loop — insight → funnel"]
+    LO --> CH["CHANNELS<br>Newsletter · LinkedIn · Web/Blog<br>· PPC Ads · E-mail"]
+    MEM["MEMORY — GitHub MD<br>metriky · learnings · content-log"] -.-> LO
+    LO -.-> MEM
+    G["GUARDRAILS<br>human gates · brand voice · cost limits"] -.-> LO
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│              AIBILITY MARKETING LOOP ENGINE                     │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  TRIGGERS              LOOPS                 CHANNELS           │
-│  ─────────             ─────                 ────────           │
-│  Pondělní cron    →   Content loop      →   Newsletter          │
-│  Nový MD v Gitu       (repurpose +           LinkedIn           │
-│  Assessment sync       evaluator)            Web/Blog           │
-│  Market signals   →   Campaign loop     →   PPC Ads             │
-│                       (insight → funnel)     E-mail             │
-│                                                                 │
-│  MEMORY (GitHub MD)  ←  metriky, learnings, content-log        │
-│  GUARDRAILS: human gates, brand voice, cost limits              │
-│                                                                 │
-│  MŮJ ROLE: strategický architekt loopů — ne operátor každého kroku│
-└─────────────────────────────────────────────────────────────────┘
-```
+
+*Moje role: strategický architekt loopů — ne operátor každého kroku.*
 
 ### Roadmap loopů (M1 → M3)
 
@@ -309,44 +290,6 @@ Jednoduchý přehled (klidně Vercel + data z analytics):
 | Video repurposing — YouTube Shorts z webinářů a eventů | Nová nahrávka | N Shorts ve frontě ke schválení | M2 |
 | Assessment insights | Nová data v benchmarku | 1 datový post + newsletter snippet | M2 |
 | Research Scout → content | Týdenní report | Témata pro editorial | M3 |
-
----
-
-## Co od týmu potřebuji (minimálně)
-
-| Co | Kdy | Kolik času |
-|----|-----|------------|
-| Přístup k analytics, newsletter tool, sociálním profilům | Den 1 | — |
-| 60min sync: priority, off-limits, brand | Den 5 | 1h |
-| Ukázka interních dat z assessmentu (anonymizovaná) | Týden 1 | async |
-| Feedback na první newsletter + posty | Týden 2 | 30min |
-| Kontakt na PPC agenturu | Týden 3 | async |
-| 30min retro | Den 30 | 30min |
-
-**Celkem: ~3 hodiny synců za měsíc.** Zbytek = stavění.
-
----
-
-## Forma spolupráce
-
-**Full-time** — ověřil jsem si, že chci fokus na jednu věc; hledám roli, do které dám celý svůj čas. Klidně ale začneme projektově / akcelerátorem (3–6 měsíců), jak sami píšete — a pokud to klikne na obou stranách, FT s equity perspektivou.
-
----
-
-## Proč já — Jakub Ryba
-
-**10 let full-spectrum marketingu** (Easy Redmine — první markeťák, T-shape přes copy, SEO, PPC, socky, analytiku, kreativu) + **AI-first builder** (Cursor denně, N8N, vibe coding v Lovable/Bolt/Macaly).
-
-Loni jsem se hlásil do Aibility s vibe-coded přihláškou a poznal Žanetu. Od té doby: Cursor jako hlavní nástroj, AI Marketing Masterclass, nové buildy (Pomodoro app, ticketovací nástroje). Sleduju vaše morning shows a vím, jak tým pracuje.
-
-**Co přináším navíc oproti typickému kandidátovi:**
-- Umím postavit funnel od nápadu po výstup — reference: Jira migration kampaň (25+ propojených kusů obsahu)
-- **Myslím v loop engineeringu** — role architekta, ne mikro-manažera promptů. Definuji měřitelné cíle, objektivní validátory a paměť — systém iteruje sám (inspirace: [Marek Bartoš / Colbrain](https://www.youtube.com/watch?v=DvqGkGqjTHo))
-- Umím být upřímný o tom, co nefungovalo — a iterovat (OKR se nenaplnilo, vím proč)
-- Znám vaši veřejnou kulturu a produkty — nepotřebuju týdny, než se zorientuju; první výstupy dodám hned
-- Přicházím s hotovou prací, ne plánem — viz tento dokument, landing page a ukázkové výstupy
-
-Portfolio: [jakubryba.com](https://jakubryba.com) · [loňská přihláška](https://command-scribe-wiz.lovable.app/) · [Pomodoro Flow](https://calm-completion-engine.lovable.app/)
 
 ---
 

@@ -1,6 +1,7 @@
 # LinkedIn post — ukázkový návrh
 
 > _Formát: datový insight → příběh → CTA. Vhodné pro firemní profil Aibility nebo Filipa._
+> _Pozn.: citát ve variantě B je reálný testimonial z aibility.org; příběh o úspoře ve variantě A je ilustrativní._
 
 ---
 
