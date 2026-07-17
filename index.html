@@ -37,7 +37,7 @@
   .links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .links a { display: inline-flex; align-items: center; height: 40px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--border); color: var(--text); text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: .015em; transition: border-color .15s ease-in-out; background: transparent; }
   .links a:hover { border-color: var(--border-hover); }
-  main, section.plan { max-width: 800px; margin: 0 auto; padding: 8px 24px 48px; }
+  main, section.plan, section.closing { max-width: 800px; margin: 0 auto; padding: 8px 24px 48px; }
   main h2, section.plan > h2.plan-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 3.5vw, 32px); line-height: 1.1; letter-spacing: -0.02em; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; margin-top: 2.6rem; }
   main h3 { font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.25; margin-top: 2rem; }
   table { border-collapse: collapse; width: 100%; font-size: 15px; }
@@ -87,12 +87,12 @@
   .md-actions button:hover, .md-actions a.btn:hover { background: #333333; }
   .md-actions a.btn.secondary { background: #ffffff; border: 1px solid var(--border); color: var(--text); }
   .md-actions a.btn.secondary:hover { border-color: var(--border-hover); background: #f4f4f4; }
-  footer { text-align: center; color: var(--text-muted); font-size: 14px; padding: 2.5rem 1rem 3.5rem; border-top: 1px solid var(--border); margin-top: 2rem; }
-  footer .foot-closing { font-family: var(--font-head); font-size: 18px; color: var(--text); margin-bottom: .9rem; }
-  footer .foot-contact { font-size: 15px; margin-bottom: .5rem; }
-  footer .foot-contact a { color: var(--accent); text-decoration: none; }
-  footer .foot-contact a:hover { text-decoration: underline; }
-  footer .foot-meta { font-size: 12.5px; color: var(--text-muted); }
+  .closing .closing-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 3.5vw, 32px); line-height: 1.1; letter-spacing: -0.02em; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; margin: 2.6rem 0 1rem; }
+  .closing .closing-text { font-size: 17px; color: var(--text-secondary); margin: 0 0 1rem; line-height: 1.65; }
+  .closing .closing-contact { font-size: 16px; color: var(--text-secondary); }
+  .closing .closing-contact a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .closing .closing-contact a:hover { text-decoration: underline; }
+  footer { text-align: center; color: var(--text-muted); font-size: 12.5px; padding: 1.5rem 1rem 3rem; }
 </style>
 </head>
 <body>
@@ -114,20 +114,21 @@
 </header>
 <main id="content"></main>
 <section class="plan">
-  <h2 class="plan-title" id="plan-30-dnu">🗓 30 dní v Aibility — a jak dál</h2>
+  <h2 class="plan-title" id="plan-30-dnu">30 dní v Aibility — a jak dál</h2>
   <p class="plan-note">Rozklikněte si jednotlivé části — nebo si stáhněte celý <a id="download-plan-inline" download="prvni-30-dnu.md" href="#">prvni-30-dnu.md</a>.</p>
   <div id="plan-content"></div>
+</section>
+<section class="closing">
+  <p class="closing-title">Díky za váš čas</p>
+  <p class="closing-text">Těším se na vaši — klidně brutálně upřímnou — zpětnou vazbu. A pokud třeba chcete vidět, jak reálně pracuju, klidně si místo části pohovoru dejme sdílení plochy 🙂 Přeji hezký den.</p>
+  <p class="closing-contact"><strong>Jakub Ryba</strong> · <a href="https://jakubryba.com" target="_blank" rel="noopener">jakubryba.com</a> · <a href="https://www.linkedin.com/in/rybajakub/" target="_blank" rel="noopener">LinkedIn</a></p>
 </section>
 <div class="md-actions">
   <button id="copy-md">📋 Zkopírovat jako Markdown</button>
   <a class="btn secondary" id="download-md" download="prihlaska.md" href="#">⬇️ prihlaska.md</a>
   <a class="btn secondary" id="download-plan" download="prvni-30-dnu.md" href="#">⬇️ prvni-30-dnu.md</a>
 </div>
-<footer>
-  <p class="foot-closing">Díky za váš čas — a těším se na vaši (klidně brutálně upřímnou) zpětnou vazbu 👋</p>
-  <p class="foot-contact"><strong>Jakub Ryba</strong> · <a href="https://jakubryba.com" target="_blank" rel="noopener">jakubryba.com</a> · <a href="https://www.linkedin.com/in/rybajakub/" target="_blank" rel="noopener">LinkedIn</a></p>
-  <p class="foot-meta">Přihláška postavená v markdownu, vykreslená v prohlížeči — Cursor + Claude Code · červenec 2026 🙂</p>
-</footer>
+<footer>Přihláška postavená v markdownu, vykreslená v prohlížeči — Cursor + Claude Code · červenec 2026 🙂</footer>
 <script type="text/markdown" id="md-source">
 # Přihláška — Head of Marketing @ Aibility
 
@@ -165,7 +166,7 @@ Proto se hlásím znovu a IMHO to tentokrát do sebe zapadá — role, timing i 
   - Automatizace v N8N · vibe-coded appky (Lovable / Bolt / Macaly)
   - Rád bych na tom dál spolupracoval s vámi, ne jen díky vám
 
-Poznámka k mojí motivaci — loni jsem školil starosty obcí jednoho mikroregionu v základech AI. Předávání mě bavilo — ten moment, kdy někomu docvakne, co všechno s tím půjde. Nenaplňovala mě ale ta úroveň: přes den jsem vysvětloval základy, zatímco doma jsem si zkoušel věci úplně jiného charakteru — jsem early adopter, proto jsem si pořídil i Mac Mini a rozběhl na něm vlastního asistenta, i když jsem s tím do té doby neměl žádnou zkušenost. Potřebuju obojí najednou: šířit AI dál a zůstat přitom early adopter. A přesně to je pro mě Aibility — pomáhat dostat vaši metodiku a data do světa.
+Poznámka k mojí motivaci — loni jsem školil starosty obcí jednoho mikroregionu v základech AI. Předávání know-how mě bavilo — ten moment, kdy někomu docvakne, co všechno s tím půjde. Nenaplňovala mě ale ta úroveň: přes den jsem vysvětloval základy, zatímco doma jsem si zkoušel věci úplně jiného charakteru — jsem early adopter, proto jsem si pořídil i Mac Mini a rozběhl na něm vlastního asistenta, i když jsem s tím do té doby neměl žádnou zkušenost. Potřebuju obojí najednou: šířit AI dál a zůstat přitom early adopter. A přesně to je pro mě Aibility — pomáhat dostat vaši metodiku a data do světa.
 
 ---
 
