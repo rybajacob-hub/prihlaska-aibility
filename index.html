@@ -37,19 +37,25 @@
   .links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .links a { display: inline-flex; align-items: center; height: 40px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--border); color: var(--text); text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: .015em; transition: border-color .15s ease-in-out; background: transparent; }
   .links a:hover { border-color: var(--border-hover); }
-  main, section.plan, section.closing { max-width: 800px; margin: 0 auto; padding: 8px 24px 48px; }
+  main, section.plan, section.closing { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+  section.closing { padding-bottom: 1.5rem; }
   main h2, section.plan > h2.plan-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 3.5vw, 32px); line-height: 1.1; letter-spacing: -0.02em; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; margin-top: 2.6rem; }
   main h3 { font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.25; margin-top: 2rem; }
+  main h4, .toggle-body h4 { font-family: var(--font-display); font-weight: 600; font-size: 17px; line-height: 1.3; color: var(--text); margin: 1.8rem 0 .4rem; }
   table { border-collapse: collapse; width: 100%; font-size: 15px; }
   th, td { border: 1px solid var(--border); padding: 0.45rem 0.65rem; text-align: left; }
   code { font-family: var(--font-mono); background: var(--surface-raised); padding: 0.1rem 0.3rem; border-radius: 4px; font-size: 0.88em; }
   pre { background: var(--surface-raised); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; overflow-x: auto; }
   pre code { background: none; padding: 0; }
   a { color: var(--accent); }
-  hr { border: none; border-top: 1px solid var(--border); margin: 2.2rem 0; }
+  hr { display: none; }
   blockquote { border-left: 3px solid var(--accent-subtle); margin-left: 0; padding-left: 1rem; color: var(--text-secondary); }
   #content img, .toggle-body img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; margin: .9rem 0 .3rem; display: block; box-shadow: var(--shadow-sm); }
-  #content img + em, .toggle-body img + em { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: .8rem; }
+  #content img + em, .toggle-body img + em, .img-wrap + em { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: .8rem; }
+  .img-wrap { position: relative; display: block; margin: .9rem 0 .3rem; }
+  .img-wrap img { margin: 0 !important; }
+  .img-wrap .zoom-btn { position: absolute; top: 8px; right: 8px; font-size: 12px; font-family: var(--font-body); background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 3px 11px; cursor: pointer; color: var(--text); box-shadow: var(--shadow-sm); z-index: 2; }
+  .img-wrap .zoom-btn:hover { border-color: var(--border-hover); background: #f4f4f4; }
   .mermaid { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin: 1rem 0; overflow-x: auto; position: relative; }
   .mermaid .zoom-btn { position: absolute; top: 8px; right: 8px; font-size: 12px; font-family: var(--font-body); background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 3px 11px; cursor: pointer; color: var(--text); box-shadow: var(--shadow-sm); z-index: 2; }
   .mermaid .zoom-btn:hover { border-color: var(--border-hover); background: #f4f4f4; }
@@ -57,7 +63,9 @@
   .mm-modal.open { display: flex; }
   .mm-modal-inner { background: #fff; border-radius: 12px; padding: 1.5rem; max-width: 96vw; max-height: 92vh; overflow: auto; }
   .mm-modal-inner svg { width: 100%; height: auto; max-width: none; }
+  .mm-modal-inner img { max-width: 100%; max-height: 86vh; height: auto; display: block; border-radius: 6px; }
   .mm-close { position: fixed; top: .8rem; right: 1.2rem; font-size: 32px; line-height: 1; color: #fff; background: none; border: none; cursor: pointer; z-index: 101; }
+  #content img, .toggle-body img { cursor: zoom-in; }
   section.plan p.plan-note { color: var(--text-muted); font-size: 14px; }
   details.toggle { border: none; border-radius: 12px; margin: 0.7rem 0; background: var(--surface-raised); transition: box-shadow .15s cubic-bezier(0,0,.2,1); }
   details.toggle:hover { box-shadow: var(--shadow-md); }
@@ -120,7 +128,8 @@
 </section>
 <section class="closing">
   <p class="closing-title">Díky za váš čas</p>
-  <p class="closing-text">Těším se na vaši — klidně brutálně upřímnou — zpětnou vazbu. A pokud třeba chcete vidět, jak reálně pracuju, klidně si místo části pohovoru dejme sdílení plochy 🙂 Přeji hezký den.</p>
+  <p class="closing-text">Těším se na vaši — klidně brutálně upřímnou — zpětnou vazbu. A pokud třeba chcete vidět, jak reálně pracuju, klidně si místo části pohovoru dejme sdílení plochy 🙂</p>
+  <p class="closing-text">Přeji hezký den.</p>
   <p class="closing-contact"><strong>Jakub Ryba</strong> · <a href="https://jakubryba.com" target="_blank" rel="noopener">jakubryba.com</a> · <a href="https://www.linkedin.com/in/rybajakub/" target="_blank" rel="noopener">LinkedIn</a></p>
 </section>
 <div class="md-actions">
@@ -155,7 +164,7 @@ Proto se hlásím znovu a IMHO to tentokrát do sebe zapadá — role, timing i 
 - **10 let v Easy Software, z toho 6 let Head of Marketing** (Easy Redmine, dnes [Easy8](https://www.easy8.com/))
   - Globální B2B SaaS v 80+ zemích
   - Přišel jsem jako první člověk v marketingu a postavil tým na 8 lidí — všechny role jsem si ale nejdřív odpracoval sám: solidní T-shape a i při osmi lidech pořád hands-on
-  - 30% meziroční růst MQL tři roky po sobě
+  - 30% meziroční růst MQL tři roky po sobě při stejném budgetu
   - Konverzi MQL→SQL jsem zvedl z 8 na 15 % během 18 měsíců řízených komplexních změn (včetně nového positioningu značky)
   - Tvůrčí proces mě uspokojuje víc než team-leading — proto mě láká to „Builder" v popisu téhle role
 - **AI-first builder**
@@ -166,7 +175,9 @@ Proto se hlásím znovu a IMHO to tentokrát do sebe zapadá — role, timing i 
   - Automatizace v N8N · vibe-coded appky (Lovable / Bolt / Macaly)
   - Rád bych na tom dál spolupracoval s vámi, ne jen díky vám
 
-Poznámka k mojí motivaci — loni jsem školil starosty obcí jednoho mikroregionu v základech AI. Předávání know-how mě bavilo — ten moment, kdy někomu docvakne, co všechno s tím půjde. Nenaplňovala mě ale ta úroveň: přes den jsem vysvětloval základy, zatímco doma jsem si zkoušel věci úplně jiného charakteru — jsem early adopter, proto jsem si pořídil i Mac Mini a rozběhl na něm vlastního asistenta, i když jsem s tím do té doby neměl žádnou zkušenost. Potřebuju obojí najednou: šířit AI dál a zůstat přitom early adopter. A přesně to je pro mě Aibility — pomáhat dostat vaši metodiku a data do světa.
+#### Poznámka k mojí motivaci
+
+Loni jsem školil starosty obcí jednoho mikroregionu v základech AI. Předávání know-how mě bavilo — ten moment, kdy někomu docvakne, co všechno s tím půjde. Nenaplňovala mě ale ta úroveň: přes den jsem vysvětloval základy, zatímco doma jsem si zkoušel věci úplně jiného charakteru — jsem early adopter, proto jsem si pořídil i Mac Mini a rozběhl na něm vlastního asistenta, i když jsem s tím do té doby neměl žádnou zkušenost. Potřebuju obojí najednou: šířit AI dál a zůstat přitom early adopter. A přesně to je pro mě Aibility — pomáhat dostat vaši metodiku a data do světa.
 
 ---
 
@@ -224,19 +235,28 @@ Vibecoded appka, která kombinuje dvě věci, které mám rád: hudbu a Pomodoro
 ![Pomodoro Flow — timer s focus hudbou z YouTube](img/pomodoro-flow.png)
 
 ### Transcript tool ve Fidoo — zpracování transkriptů porad z Teams do to-do (2026)
-- Stavěl jsem i v korporátu: nástroj na zpracování transkriptů porad z Teams — export → převod na markdown (včetně účastníků) → uložení do správné složky → prompt se skillem → hotová to-dočka z porady. Malá věc, každodenní úspora.
+
+Stavěl jsem i v korporátu — malý nástroj, který mi šetřil čas u každé porady.
+
+- Transkript z Teams → převod na markdown (včetně účastníků) → uložení do správné složky → prompt se skillem → hotová to-dočka z porady.
 
 ![Transcript Converter — nástroj postavený ve Fidoo](img/transcript-converter.png)
 
 ### Loňská vibe-coded přihláška — interaktivní přihláška místo PDF (2025)
-- **Odkaz:** https://command-scribe-wiz.lovable.app/ — je pořád živá, klidně se podívejte
-- Interaktivní přihláška místo PDF — návrhy kampaní pro Aibility, můj tehdejší AI stack a konkrétní use cases:
+
+Loni jsem se do Aibility hlásil poprvé — interaktivní přihláškou místo PDF. Je pořád živá.
+
+- **Odkaz:** https://command-scribe-wiz.lovable.app/
+- Návrhy kampaní pro Aibility, můj tehdejší AI stack a konkrétní use cases:
   - Vytřídění hudební knihovny od duplicit
   - Interní etiketovací nástroj postavený ve třech různých appkách
   - Kampaň k Jira migraci — hlavní reference, má vlastní sekci níž
 
 ### Jira migration funnel — hlavní marketingová reference, funnel TOFU→BOFU (Easy Redmine/Easy8)
-- Kompletní edukativní funnel TOFU → BOFU, 25+ propojených výstupů (webináře, blogy, PDF, video, lead magnety). T-shape přes copy, SEO, PPC, socky, analytiku.
+
+Moje hlavní marketingová reference — kompletní edukativní funnel, který jsem postavil v Easy8.
+
+- Funnel TOFU → BOFU, 25+ propojených výstupů (webináře, blogy, PDF, video, lead magnety). T-shape přes copy, SEO, PPC, socky, analytiku.
 - **Živé ukázky:** [moje autorská stránka na blogu](https://www.easy8.com/blog/jakub-ryba) · [webinář: Jira Server's end of life](https://www.easy8.com/news/jira-servers-end-of-life-what-are-your-options-webinar) · [step-by-step průvodce migrací](https://www.easy8.com/news/jira-migration-doesnt-have-to-be-a-nightmare)
 - **Lekce:** OKR (100+ klientů/rok) se nenaplnilo — silný marketing nestačí bez doménové znalosti a alignmentu se sales. Tohle beru s sebou a říkám to nahlas, protože vím, že upřímnost je vaše kultura.
 
@@ -244,7 +264,7 @@ Vibecoded appka, která kombinuje dvě věci, které mám rád: hudbu a Pomodoro
 
 ## O jakou spolupráci mám zájem
 
-Hledám **full-time** — ověřil jsem si, že chci fokus na jednu věc, ne portfolio úvazků; roli, do které dám celý svůj čas. Klidně ale začneme projektově nebo akcelerátorem (3–6 měsíců), jak sami píšete. A pokud to klikne na obou stranách, jsem otevřený i podílu, který nabízíte.
+Hledám **full-time** — ověřil jsem si, že chci fokus na jednu věc, ne portfolio úvazků; roli, do které dám celý svůj čas. Klidně ale začneme projektově nebo akcelerátorem (3–6 měsíců), jak sami píšete. A pokud to „klikne" na obou stranách — super.
 
 ---
 
@@ -777,6 +797,28 @@ flowchart LR
       mmModal.classList.add("open");
     });
     m.appendChild(btn);
+  });
+
+  // Obrázky v obsahu → tlačítko „Zvětšit" + klik = modal
+  document.querySelectorAll("#content img").forEach(img => {
+    const wrap = document.createElement("span");
+    wrap.className = "img-wrap";
+    img.replaceWith(wrap);
+    wrap.appendChild(img);
+    const openImg = () => {
+      mmInner.innerHTML = "";
+      const big = document.createElement("img");
+      big.src = img.src;
+      big.alt = img.alt || "";
+      mmInner.appendChild(big);
+      mmModal.classList.add("open");
+    };
+    const btn = document.createElement("button");
+    btn.className = "zoom-btn";
+    btn.textContent = "⤢ Zvětšit";
+    btn.addEventListener("click", openImg);
+    img.addEventListener("click", openImg);
+    wrap.appendChild(btn);
   });
 </script>
 </body>
