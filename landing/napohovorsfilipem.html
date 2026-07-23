@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prvních 30 dní jako loopy | Head of Marketing @ Aibility</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Signika:wght@400;500;600;700&display=swap">
+  <style>
+  :root {
+    /* Design tokeny — viz docs/DESIGN-SYSTEM.md (aibility.org) */
+    --bg: #201547;
+    --surface: #2a1c5c;
+    --surface-2: #322270;
+    --border: #3a2f66;
+    --text: #FAF4EE;
+    --muted: rgba(250, 244, 238, 0.66);
+    --faint: rgba(250, 244, 238, 0.42);
+    --accent: #5938B7;
+    --accent-light: #A98DF6;
+    --green: #00cec9;
+    --orange: #fdcb6e;
+    --red: #ff7675;
+    --font-display: 'Signika', sans-serif;
+    --font-body: 'Geist', -apple-system, sans-serif;
+    --font-mono: 'Geist Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 17px;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(32, 21, 71, 0.82);
+    backdrop-filter: saturate(140%) blur(10px);
+  }
+  .logo {
+    font-size: 14px; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .logo span { color: var(--accent-light); }
+
+  .badge {
+    display: inline-block;
+    background: rgba(169, 141, 246, 0.14);
+    color: var(--accent-light);
+    font-size: 13px; font-weight: 500;
+    padding: 6px 14px; border-radius: 100px;
+    margin: 56px 0 22px;
+    border: 1px solid rgba(169, 141, 246, 0.3);
+    font-family: var(--font-mono); letter-spacing: 0.04em;
+  }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(34px, 5.4vw, 52px); line-height: 1.1; margin-bottom: 20px; }
+  h1 em {
+    font-style: italic; font-weight: 600;
+    background: linear-gradient(135deg, var(--accent-light), var(--green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .subtitle { font-size: 19px; color: var(--muted); margin-bottom: 20px; max-width: 620px; }
+
+  .hero-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .hero-links a {
+    display: inline-flex; align-items: center; height: 38px; padding: 0 18px;
+    border-radius: 999px; border: 1px solid var(--border); color: var(--text);
+    text-decoration: none; font-size: 14px; font-weight: 600;
+    transition: border-color .15s, background .15s;
+  }
+  .hero-links a:hover { border-color: var(--accent-light); background: var(--surface); }
+
+  .overline {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent-light); margin-bottom: 12px;
+  }
+
+  section.block { margin: 56px 0; }
+  section.block > h2 {
+    font-size: clamp(23px, 3.4vw, 30px); line-height: 1.15; margin-bottom: 6px;
+  }
+  section.block > .lead-note { color: var(--faint); font-size: 14px; margin-bottom: 22px; }
+
+  /* Princip — zvýrazněný panel */
+  .principle {
+    background: linear-gradient(160deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--border); border-radius: 18px;
+    padding: 28px 30px; margin: 40px 0;
+  }
+  .principle .overline { margin-bottom: 14px; }
+  ul.clean { list-style: none; }
+  ul.clean li { position: relative; padding-left: 26px; margin: 12px 0; color: var(--muted); }
+  ul.clean li::before {
+    content: ""; position: absolute; left: 4px; top: 11px;
+    width: 7px; height: 7px; border-radius: 2px; background: var(--accent-light);
+  }
+  ul.clean li strong, .principle strong { color: var(--text); font-weight: 600; }
+
+  /* Cíl — checklist karty */
+  .goals { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 22px; }
+  @media (min-width: 620px) { .goals { grid-template-columns: 1fr 1fr; } }
+  .goal {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 18px; font-size: 15px;
+  }
+  .goal::before {
+    content: "✓"; color: var(--green); font-weight: 800; font-size: 15px; line-height: 1.6; flex: none;
+  }
+  .goal strong { color: var(--text); font-weight: 600; display: block; margin-bottom: 2px; }
+  .goal span { color: var(--muted); font-size: 14px; }
+
+  /* Přehled týdnů — dlaždice */
+  .weeks-nav { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 28px 0 8px; }
+  @media (min-width: 620px) { .weeks-nav { grid-template-columns: repeat(4, 1fr); } }
+  .week-tile {
+    display: block; text-decoration: none; color: var(--text);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 16px; transition: transform .12s, border-color .15s, background .15s;
+  }
+  .week-tile:hover { transform: translateY(-2px); border-color: var(--accent-light); background: var(--surface-2); }
+  .week-tile .wk { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--accent-light); text-transform: uppercase; }
+  .week-tile .wt { font-family: var(--font-display); font-weight: 600; font-size: 16px; margin: 6px 0 4px; line-height: 1.2; }
+  .week-tile .wd { font-size: 13px; color: var(--muted); }
+
+  /* Týdenní sekce */
+  .week { margin: 52px 0; scroll-margin-top: 80px; }
+  .week-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 22px; }
+  .week-head .num {
+    font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.1em;
+    color: var(--bg); background: var(--accent-light); border-radius: 6px; padding: 3px 9px; text-transform: uppercase; flex: none;
+  }
+  .week-head h2 { font-size: clamp(22px, 3.2vw, 28px); }
+  .week ul.clean li { margin: 14px 0; }
+  .week ul.clean li .desc { color: var(--muted); }
+  .result {
+    margin-top: 18px; padding: 12px 16px; border-radius: 10px;
+    background: rgba(0, 206, 201, 0.08); border: 1px solid rgba(0, 206, 201, 0.28);
+    font-size: 14px; color: var(--text);
+  }
+  .result strong { color: var(--green); }
+
+  /* file chip */
+  code, .chip {
+    font-family: var(--font-mono); font-size: 0.82em;
+    background: rgba(169,141,246,0.12); color: var(--accent-light);
+    padding: 2px 7px; border-radius: 6px; border: 1px solid rgba(169,141,246,0.22);
+    white-space: nowrap;
+  }
+  .arrow { color: var(--faint); }
+
+  blockquote {
+    border-left: 3px solid var(--accent); margin: 40px 0; padding: 6px 0 6px 22px;
+    font-size: 17px; font-style: italic; color: var(--muted);
+  }
+
+  footer {
+    padding: 40px 0 64px; border-top: 1px solid var(--border); margin-top: 64px;
+    text-align: center; font-size: 13px; color: var(--faint); line-height: 1.7;
+  }
+  footer .name { color: var(--muted); }
+  footer a { color: var(--accent-light); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo"><span>AI</span>bility · Superpowered Professional™</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="badge">Návrh na prvních 30 dní · podklad k pohovoru</div>
+
+  <h1>Prvních 30 dní jako <em>loopy</em></h1>
+  <p class="subtitle">
+    Nestavím obsah — stavím smyčky, které obsah samy nacházejí, tvoří, ověřují a publikují.
+    Tady je, co za první měsíc jako Head of Marketing v Aibility postavím.
+  </p>
+  <div class="hero-links">
+    <a href="https://rybajacob-hub.github.io/prihlaska-aibility/">← Zpět na přihlášku</a>
+    <a href="https://jakubryba.com" target="_blank" rel="noopener">jakubryba.com</a>
+    <a href="https://www.linkedin.com/in/rybajakub/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+
+  <!-- PRINCIP -->
+  <div class="principle">
+    <div class="overline">Princip</div>
+    <ul class="clean">
+      <li>Nestavím obsah — stavím <strong>loopy</strong>, které obsah staví.</li>
+      <li>Místo instrukce („napiš post") definuji <strong>cíl, validátor a paměť</strong>.</li>
+      <li>Smyčka <em>průzkum → plán → akce → ověření</em> běží, dokud objektivní validátor neřekne ano.</li>
+      <li>Na začátku human gate, postupně autonomie.</li>
+      <li>Moje role: <strong>architekt systému</strong>, ne operátor každého kroku.</li>
+    </ul>
+  </div>
+
+  <!-- CO VIDÍM ZVENKU -->
+  <section class="block">
+    <div class="overline">Co vidím zvenku</div>
+    <h2>Diagnóza</h2>
+    <ul class="clean" style="margin-top:18px;">
+      <li>Aibility má, co konkurence nemá: <strong>SP™ data od 3 000+ respondentů</strong>, 12+ klientských příběhů, B2B jména (NN, O2, Seyfor), EU AI Act jako hook na management.</li>
+      <li>Obsah existuje — chybí <strong>architektura</strong>, která ho systematicky nachází, zpracovává, ověřuje a publikuje.</li>
+      <li>Části už běží (pondělní posty), ale jako <strong>sbírka hacků</strong>, ne jako systém.</li>
+    </ul>
+  </section>
+
+  <!-- CÍL -->
+  <section class="block">
+    <div class="overline">Cíl prvního měsíce</div>
+    <h2>Kam se za 30 dní dostaneme</h2>
+    <div class="goals">
+      <div class="goal"><div><strong>Běžící content rytmus</strong><span>2 newslettery, 8+ postů, 1 lead magnet</span></div></div>
+      <div class="goal"><div><strong>Marketing loop v0.1</strong><span>alespoň 1 end-to-end: trigger → výstup → evaluace → paměť</span></div></div>
+      <div class="goal"><div><strong>Content engine dokumentovaný</strong><span>pipeline v markdownu na GitHubu</span></div></div>
+      <div class="goal"><div><strong>První kampaň s čísly</strong><span>landing page, e-mail sekvence, metriky</span></div></div>
+      <div class="goal"><div><strong>Marketing dashboard</strong><span>kanály, konverze, top obsah, co se vrací do loopu</span></div></div>
+      <div class="goal"><div><strong>Napojení na client-facing tým</strong><span>jejich potřeby jako vstup pro loopy</span></div></div>
+    </div>
+  </section>
+
+  <!-- PŘEHLED TÝDNŮ -->
+  <section class="block">
+    <div class="overline">30 dní v přehledu</div>
+    <h2>Čtyři týdny, čtyři milníky</h2>
+    <nav class="weeks-nav">
+      <a class="week-tile" href="#tyden-1"><div class="wk">Týden 1</div><div class="wt">Naslouchat a mapovat</div><div class="wd">Audit, handover, první mini-loop</div></a>
+      <a class="week-tile" href="#tyden-2"><div class="wk">Týden 2</div><div class="wt">Content loop v0.1</div><div class="wd">Validátor, paměť, repurpose</div></a>
+      <a class="week-tile" href="#tyden-3"><div class="wk">Týden 3</div><div class="wt">Kampaň jako loop</div><div class="wd">SP™ data, měřitelný cíl</div></a>
+      <a class="week-tile" href="#tyden-4"><div class="wk">Týden 4</div><div class="wt">Metriky a iterace</div><div class="wd">Dashboard, retro, autonomie</div></a>
+    </nav>
+  </section>
+
+  <!-- TÝDEN 1 -->
+  <section class="week" id="tyden-1">
+    <div class="week-head"><span class="num">Týden 1</span><h2>Naslouchat a mapovat</h2></div>
+    <ul class="clean">
+      <li><strong>Handover s Anetou</strong> — <span class="desc">priorita hned na začátku: odchází a s ní praktická znalost setupu, který dnes reálně běží (Cursor + Upload-Post, pondělní batch). Jediný termín v plánu, který neurčuji já.</span> <span class="arrow">→</span> <code>loop-inventory.md</code></li>
+      <li><strong>Audit obsahu a loopů</strong> — <span class="desc">veškerý veřejný i interní obsah, mapa toho, co už běží automaticky, assessment data, konkurenční scan a mezera v positioningu.</span> <span class="arrow">→</span> <code>content-audit.md</code></li>
+      <li><strong>Quick wins ven</strong> — <span class="desc">3 LinkedIn posty z klientských příběhů ručně (benchmark pro validátor), 1 newsletter z existujícího obsahu.</span></li>
+      <li><strong>První mini-loop v tréninkovém režimu</strong> — <span class="desc">cíl místo instrukce, validátor, paměť, schvaluji každý cyklus.</span> <span class="arrow">→</span> <code>content-log.md</code></li>
+      <li><strong>Positioning statement na Q3</strong> — <span class="desc">1 strana, ne 30.</span></li>
+      <li><strong>Sync s Filipem, Tomem, Martinem</strong> — <span class="desc">co funguje, co je off-limits, kde jsou guardrails, priority B2C vs. B2B.</span></li>
+      <li><strong>Kolečko s client-facing týmem</strong> — <span class="desc">jsou de facto sales department a mají nejčerstvější obraz poptávky: o čem se se zákazníky reálně baví, jaké podklady jim chybí, jakým jazykem klient mluví, kde se dealy zadrhávají.</span> <span class="arrow">→</span> <code>sales-insights.md</code></li>
+    </ul>
+  </section>
+
+  <!-- TÝDEN 2 -->
+  <section class="week" id="tyden-2">
+    <div class="week-head"><span class="num">Týden 2</span><h2>Content loop v0.1</h2></div>
+    <ul class="clean">
+      <li><strong>Brand voice skill</strong> — <span class="desc">tone, zakázaná slova, příklady jako vstup pro validátor.</span></li>
+      <li><strong>Objektivní validátor</strong> — <span class="desc">ano/ne checklist, ne „vypadá to dobře".</span></li>
+      <li><strong>Repurpose loop</strong> — <span class="desc">z jednoho MD vzniká N výstupů ve frontě ke schválení.</span></li>
+      <li><strong>Paměť</strong> — <span class="desc">co šlo ven, co nefungovalo, co neopakovat.</span> <span class="arrow">→</span> <code>content-log.md</code></li>
+      <li><strong>Nástroje</strong> — <span class="desc">GitHub, analytics, publikace navázaná na váš Upload-Post.</span></li>
+      <li><strong>Dělba rolí</strong> — <span class="desc">maker agent tvoří, validátor měří, já schvaluji, dokud validátor nechytá chyby spolehlivě.</span></li>
+      <li><strong>Newsletter rytmus</strong> — <span class="desc">frekvence podle kapacity týmu, template jako skill.</span></li>
+    </ul>
+    <div class="result"><strong>Výsledek:</strong> loop běží 1× end-to-end, 2. newsletter live, 4+ posty.</div>
+  </section>
+
+  <!-- TÝDEN 3 -->
+  <section class="week" id="tyden-3">
+    <div class="week-head"><span class="num">Týden 3</span><h2>Kampaň jako loop</h2></div>
+    <ul class="clean">
+      <li><strong>Kampaň „Kolik % vašeho týmu je AI Explorer?"</strong> — <span class="desc">staví na unikátních SP™ datech, diferenciace: ne „naučte se ChatGPT", ale „změřte, kde jste".</span></li>
+      <li><strong>Měřitelný cíl místo instrukce</strong> — <span class="desc">assessment starts ≥ 50/týden z LinkedIn trafficu, konverze landingu ≥ 8 %.</span></li>
+      <li><strong>Dodám</strong> — <span class="desc">landing page v identitě Aibility, 3 e-maily v sekvenci, 5 variant postů pro A/B, brief pro PPC agenturu s KPIs.</span></li>
+      <li><strong>Loop spec</strong> — <span class="desc">co se spouští znovu, když přijdou nová assessment data.</span></li>
+      <li><strong>Learnings zpět do paměti</strong> — <span class="desc">ne do šuplíku.</span> <span class="arrow">→</span> <code>campaign-log.md</code></li>
+    </ul>
+  </section>
+
+  <!-- TÝDEN 4 -->
+  <section class="week" id="tyden-4">
+    <div class="week-head"><span class="num">Týden 4</span><h2>Metriky a iterace</h2></div>
+    <ul class="clean">
+      <li><strong>Dashboard v0.1</strong> — <span class="desc">traffic po kanálech, konverze assessmentu (start → dokončení → platba), top 5 obsahů, newsletter open/click, B2B leady, loop health.</span></li>
+      <li><strong>Dokumentace pro tým</strong> — <span class="desc"></span> <code>marketing-loops.md</code> <code>marketing-playbook.md</code> <code>campaign-retro.md</code></li>
+      <li><strong>Retro s Filipem</strong> — <span class="desc">čísla, learnings, které loopy škálovat.</span></li>
+      <li><strong>Zpětná vazba od client-facing týmu</strong> — <span class="desc">pomohly jim výstupy v reálných hovorech? Co dodat dál?</span></li>
+      <li><strong>Rozhodnutí o autonomii</strong> — <span class="desc">které loopy pustit ze řetězu tam, kde validátory prokazatelně fungují.</span></li>
+      <li><strong>Plán měsíce 2</strong> — <span class="desc">paralelní loopy, video repurposing na YouTube Shorts, škálování.</span></li>
+    </ul>
+  </section>
+
+  <blockquote>
+    Cíl prvního měsíce není „hodně obsahu". Je to <strong>první běžící smyčka</strong>, které začínám věřit — a paměť, ze které roste ta další.
+  </blockquote>
+
+</main>
+
+<footer>
+  <p class="name"><strong>Jakub Ryba</strong> · <a href="https://jakubryba.com" target="_blank" rel="noopener">jakubryba.com</a> · <a href="https://www.linkedin.com/in/rybajakub/" target="_blank" rel="noopener">LinkedIn</a></p>
+  <p style="margin-top:10px;">Postaveno z veřejných zdrojů. Inspirace: loop engineering — Marek Bartoš (Colbrain), Boris Cherny, Addy Osmani.</p>
+  <p style="margin-top:6px;">Superpowered Professional™ je trademark Aibility</p>
+</footer>
+
+</body>
+</html>

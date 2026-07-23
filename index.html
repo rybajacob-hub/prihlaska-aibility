@@ -84,6 +84,9 @@
   nav.toc a { display: block; padding: 0.32rem 0 0.32rem 0.9rem; border-left: 2px solid var(--border); color: var(--text-muted); text-decoration: none; font-size: 14px; line-height: 1.35; transition: color .15s ease-in-out, border-color .15s ease-in-out; }
   nav.toc a:hover { color: var(--text); }
   nav.toc a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+  nav.toc a.toc-external { color: var(--text); font-weight: 600; border-left-color: var(--accent-subtle); }
+  nav.toc a.toc-external:hover { color: var(--accent); }
+  .toc-new { display: inline-block; font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; font-weight: 600; color: #fff; background: var(--accent); border-radius: 4px; padding: 1px 5px; margin-left: 6px; vertical-align: middle; }
 
   .md-actions { position: fixed; bottom: 1.2rem; right: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; z-index: 10; }
   .md-actions button, .md-actions a.btn {
@@ -724,6 +727,15 @@ flowchart LR
     if (visible.length) setActive(visible[0].target.id);
   }, { rootMargin: "-10% 0px -70% 0px" });
   headings.forEach(h => observer.observe(h));
+
+  // Poslední položka menu: samostatná LP „Na pohovor s Filipem" (externí odkaz, ne kotva) + tag NEW
+  const npfLi = document.createElement("li");
+  const npfA = document.createElement("a");
+  npfA.href = "./landing/napohovorsfilipem.html";
+  npfA.className = "toc-external";
+  npfA.innerHTML = 'Na pohovor s Filipem <span class="toc-new">NEW</span>';
+  npfLi.appendChild(npfA);
+  tocList.appendChild(npfLi);
 
   // Externí odkazy → nový tab
   document.querySelectorAll('main a[href^="http"]').forEach(a => {
